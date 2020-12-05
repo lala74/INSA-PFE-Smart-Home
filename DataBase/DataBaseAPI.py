@@ -27,13 +27,13 @@ class DataBaseAPI:
 
     def create_table(self):
         self.__connect()
-        # '''CREATE TABLE IF NOT EXISTS sensors (date timestamp, sensor_id int, temp real, humid real)'''
+        # CREATE TABLE IF NOT EXISTS sensors (date timestamp, sensor_id int, temp real, humid real)
         cmd = 'CREATE TABLE IF NOT EXISTS ' + tableName + tableElements
         self.__execute_cmd(cmd)
 
     def insert_data(self, date, sensorId, temp, humid):
         self.__connect()
-        # 'INSERT INTO sensors VALUES (123345, 3, 23.7, 0.8)'
+        # INSERT INTO sensors VALUES (123345, 3, 23.7, 0.8)
         cmd = 'INSERT INTO ' + tableName + \
             ' VALUES (' + str(date) + ',' + str(sensorId) + \
             ',' + str(temp)+',' + str(humid)+')'
