@@ -18,6 +18,11 @@ def main():
     print("------- Data of sensor 12 --------")
     for row in dataAPI.load_data_by_sensor_id(12):
         print(row)
+    print("------- Data of sensor 10 --------")
+    for row in dataAPI.custom_query('SELECT * FROM sensors WHERE sensor_id = 10'):
+        print(row)
+    print("------- Export to CSV --------")
+    dataAPI.export_to_csv()
     dataAPI.delete_database()
 
 

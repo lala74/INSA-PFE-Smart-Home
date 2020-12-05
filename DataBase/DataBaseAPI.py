@@ -6,6 +6,7 @@
 from __future__ import print_function
 import sqlite3
 from sqlite3.dbapi2 import connect
+import csv
 
 dataFileName = 'data.db'
 tableName = 'sensors'
@@ -52,6 +53,16 @@ class DataBaseAPI:
         for row in self.load_all_data():
             print(row)
 
+    def export_to_csv(self):
+        self.__connect()
+        self.load_all_data()
+        c = self.cursor
+        with open("data.csv", "w") as csv_file:
+            csv_writer = csv.writer(csv_file, delimiter="\t")
+            csv_writer.writerow([i[0] for i in c.description])
+            csv_writer.writerows(c)
+        self.__close()
+
     def load_all_data(self):
         self.__connect()
         # SELECT * FROM sensors
@@ -64,6 +75,11 @@ class DataBaseAPI:
         # DELETE * FROM sensors
         cmd = 'DELETE FROM ' + tableName
         self.__execute_cmd(cmd)
+
+    def custom_query(self, cmd):
+        self.__connect()
+        value = self.cursor.execute(cmd)
+        return value
 
     def __connect(self):
         self.conn = sqlite3.connect(dataFileName)
