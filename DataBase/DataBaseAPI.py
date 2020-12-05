@@ -8,11 +8,11 @@ import sqlite3
 from sqlite3.dbapi2 import connect
 
 dataFileName = 'data.db'
+tableName = 'sensors'
+tableElements = '(date timestamp, sensor_id int, temp real, humid real)'
 
-tableElement = '(date timestamp, sensor_id int, temp real, humid real)'
 
-
-class DataStoreAPI:
+class DataBaseAPI:
     # def __init__(self, imgPath):
     #     self.imgPath = imgPath
     conn = None
@@ -28,8 +28,10 @@ class DataStoreAPI:
 
     def create_table(self):
         self.__connect()
-        self.cursor.execute('''CREATE TABLE IF NOT EXISTS sensors
-             (date timestamp, sensor_id int, temp real, humid real)''')
+
+        # '''CREATE TABLE IF NOT EXISTS sensors (date timestamp, sensor_id int, temp real, humid real)'''
+        cmd = "CREATE TABLE IF NOT EXISTS " + tableName + tableElements
+        self.cursor.execute(cmd)
         self.__close()
 
     def insert_data(self, date, sensorId, temp, humid):
@@ -40,4 +42,8 @@ class DataStoreAPI:
             sensorId) + "," + str(temp)+"," + str(humid)+")"
         self.cursor.execute(cmd)
         self.conn.commit()
+
         self.__close()
+
+    # def delete_database():
+        
