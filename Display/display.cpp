@@ -8,21 +8,21 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
 {
     ui->setupUi(this);
     // Initialize the display
-    QTimer::singleShot(0, this, SLOT(update_display()));
-    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
+    initialize_display();
     // Start timer
     QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update_display()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
     timer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
 }
 
-Display::~Display()
+void Display::initialize_display()
 {
-    delete ui;
+    update_home_data_display();
+    ui->TimeDisplay->display(QTime::currentTime().toString("hh:mm:ss"));
 }
 
-void Display::update_display()
+void Display::update_home_data_display()
 {
     DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
     //    DbManager dbManager("/mnt/Etudie/5eme_Annee_S1/PFE/Code-projet/PFE-Smart-Home/Data/data.db");
@@ -60,5 +60,10 @@ void Display::update_data()
 
 void Display::timerEvent(QTimerEvent* /*event*/)
 {
-    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->TimeDisplay->display(QTime::currentTime().toString("hh:mm:ss"));
+}
+
+Display::~Display()
+{
+    delete ui;
 }

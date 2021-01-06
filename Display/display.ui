@@ -10,6 +10,13 @@
     <height>459</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Display</string>
   </property>
@@ -27,6 +34,7 @@
      <font>
       <pointsize>21</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -50,6 +58,7 @@
      <font>
       <pointsize>21</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -73,6 +82,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -96,6 +106,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -119,6 +130,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -142,6 +154,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -165,6 +178,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -188,6 +202,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -211,6 +226,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -234,6 +250,7 @@
      <font>
       <pointsize>14</pointsize>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -257,6 +274,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -280,6 +298,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -303,6 +322,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -326,6 +346,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -349,6 +370,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -372,6 +394,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -395,6 +418,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -418,6 +442,7 @@
      <font>
       <pointsize>13</pointsize>
       <weight>50</weight>
+      <italic>false</italic>
       <bold>false</bold>
      </font>
     </property>
@@ -428,25 +453,43 @@
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="TimeDisplay">
+   <widget class="QLCDNumber" name="TimeDisplay">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>20</y>
-      <width>91</width>
-      <height>31</height>
+      <x>470</x>
+      <y>30</y>
+      <width>171</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <strikeout>false</strikeout>
      </font>
     </property>
-    <property name="text">
-     <string>00:00</string>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(32, 74, 135);</string>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="midLineWidth">
+     <number>0</number>
+    </property>
+    <property name="digitCount">
+     <number>8</number>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
     </property>
    </widget>
   </widget>

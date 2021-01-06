@@ -22,9 +22,10 @@ protected:
     void timerEvent(QTimerEvent* event);
 
 private slots:
-    void update_display();
+    void update_home_data_display();
 
 private:
+    void initialize_display();
     void update_data();
 
 private:
