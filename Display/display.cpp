@@ -6,20 +6,24 @@
 Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
 {
     ui->setupUi(this);
-    startTimer(1000);  // 1-second timer
+    QTimer* timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(update_display()));
+    QTimer::singleShot(0, this, SLOT(update_display()));
+    timer->start(3000);
+    startTimer(1000);  // 1-second timer for timeDisplay
+}
 
-    ui->IndoorTemp->setText("0 °C");
-    ui->IndoorHum->setText("80 %");
-    ui->IndoorMov->setText("True");
-    ui->IndoorLum->setText("1");
-    ui->OutdoorTemp->setText("0 °C");
-    ui->OutdoorHum->setText("80 %");
-    ui->OutdoorMov->setText("True");
-    ui->OutdoorLum->setText("1");
+Display::~Display()
+{
+    delete ui;
+}
 
+void Display::update_display()
+{
     QMap<QString, QVariant> mapValue;
-
     DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
+    //    DbManager dbManager("/mnt/Etudie/5eme_Annee_S1/PFE/Code-projet/PFE-Smart-Home/Data/data.db");
+
     mapValue = dbManager.get_outdoor_data();
     qDebug() << "device:" << mapValue.value("device").toString();
     qDebug() << "sensor_id:" << mapValue.value("sensor_id").toString();
@@ -42,13 +46,7 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     ui->OutdoorLum->setText(QString::number(mapValue.value("luminosity").toDouble(), 'f', 1));
 }
 
-Display::~Display()
-{
-    delete ui;
-}
-
-void Display::timerEvent(QTimerEvent* event)
+void Display::timerEvent(QTimerEvent* /*event*/)
 {
     ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
-    //    setWindowTitle();
 }

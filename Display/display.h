@@ -20,6 +20,9 @@ public:
 protected:
     void timerEvent(QTimerEvent* event);
 
+private slots:
+    void update_display();
+
 private:
     Ui::Display* ui;
 };
