@@ -18,7 +18,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Display</string>
+   <string>Home Sensor</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
