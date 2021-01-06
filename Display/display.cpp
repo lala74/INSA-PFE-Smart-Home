@@ -1,15 +1,19 @@
 #include "display.h"
 
+#include "constants.h"
 #include "dbmanager.h"
 #include "ui_display.h"
 
 Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
 {
     ui->setupUi(this);
+    // Initialize the display
+    QTimer::singleShot(0, this, SLOT(update_display()));
+    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
+    // Start timer
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update_display()));
-    QTimer::singleShot(0, this, SLOT(update_display()));
-    timer->start(3000);
+    timer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
 }
 
@@ -20,30 +24,38 @@ Display::~Display()
 
 void Display::update_display()
 {
-    QMap<QString, QVariant> mapValue;
     DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
     //    DbManager dbManager("/mnt/Etudie/5eme_Annee_S1/PFE/Code-projet/PFE-Smart-Home/Data/data.db");
 
     mapValue = dbManager.get_outdoor_data();
-    qDebug() << "device:" << mapValue.value("device").toString();
-    qDebug() << "sensor_id:" << mapValue.value("sensor_id").toString();
-    qDebug() << "timestamp:" << mapValue.value("timestamp").toString();
-    qDebug() << "temperature:" << mapValue.value("temperature").toDouble();
-    qDebug() << "humidiy:" << mapValue.value("humidiy").toDouble();
-    qDebug() << "mouvement:" << mapValue.value("mouvement").toDouble();
-    qDebug() << "luminosity:" << mapValue.value("luminosity").toDouble();
+    update_data();
+    ui->IndoorTemp->setText(temperature);
+    ui->IndoorHum->setText(humidity);
+    ui->IndoorMov->setText(mouvement);
+    ui->IndoorLum->setText(luminosity);
 
-    ui->IndoorTemp->setText(QString::number(mapValue.value("temperature").toDouble(), 'f', 1) + " °C");
-    ui->IndoorHum->setText(QString::number(mapValue.value("humidiy").toDouble(), 'f', 1) + " %");
-    ui->IndoorMov->setText(mapValue.value("mouvement").toString());
-    ui->IndoorLum->setText(QString::number(mapValue.value("luminosity").toDouble(), 'f', 1));
+    qDebug() << database::column::device << mapValue.value(database::column::device).toString();
+    qDebug() << database::column::sensor_id << mapValue.value(database::column::sensor_id).toString();
+    qDebug() << database::column::timestamp << mapValue.value(database::column::timestamp).toString();
+    qDebug() << database::column::temperature << temperature;
+    qDebug() << database::column::humidity << humidity;
+    qDebug() << database::column::mouvement << mouvement;
+    qDebug() << database::column::luminosity << luminosity;
 
     mapValue = dbManager.get_indoor_data();
+    update_data();
+    ui->OutdoorTemp->setText(temperature);
+    ui->OutdoorHum->setText(humidity);
+    ui->OutdoorMov->setText(mouvement);
+    ui->OutdoorLum->setText(luminosity);
+}
 
-    ui->OutdoorTemp->setText(QString::number(mapValue.value("temperature").toDouble(), 'f', 1) + " °C");
-    ui->OutdoorHum->setText(QString::number(mapValue.value("humidiy").toDouble(), 'f', 1) + " %");
-    ui->OutdoorMov->setText(mapValue.value("mouvement").toString());
-    ui->OutdoorLum->setText(QString::number(mapValue.value("luminosity").toDouble(), 'f', 1));
+void Display::update_data()
+{
+    temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1) + " °C";
+    humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 1) + " %";
+    mouvement = mapValue.value(database::column::mouvement).toString();
+    luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 1);
 }
 
 void Display::timerEvent(QTimerEvent* /*event*/)

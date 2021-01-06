@@ -2,6 +2,7 @@
 #define DISPLAY_H
 
 #include <QMainWindow>
+#include <QMap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -24,6 +25,11 @@ private slots:
     void update_display();
 
 private:
+    void update_data();
+
+private:
     Ui::Display* ui;
+    QMap<QString, QVariant> mapValue;
+    QString temperature, humidity, mouvement, luminosity;
 };
 #endif  // DISPLAY_H
