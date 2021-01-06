@@ -19,7 +19,8 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
 void Display::initialize_display()
 {
     update_home_data_display();
-    ui->TimeDisplay->display(QTime::currentTime().toString("hh:mm:ss"));
+    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->DateDisplay->setText(QDate::currentDate().toString("dd-MM-yyyy"));
 }
 
 void Display::update_home_data_display()
@@ -52,15 +53,17 @@ void Display::update_home_data_display()
 
 void Display::update_data()
 {
-    temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1) + " °C";
-    humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 1) + " %";
+    temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1);
+    humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 0);
     mouvement = mapValue.value(database::column::mouvement).toString();
     luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 1);
 }
 
 void Display::timerEvent(QTimerEvent* /*event*/)
 {
-    ui->TimeDisplay->display(QTime::currentTime().toString("hh:mm:ss"));
+    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
+    ui->DateDisplay->setText(QDate::currentDate().toString("dd-MM-yyyy"));
+    ui->DayDisplay->setText(QDate::currentDate().toString("dddd"));
 }
 
 Display::~Display()
