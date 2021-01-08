@@ -23,6 +23,7 @@ protected:
 
 private slots:
     void update_home_data_display();
+    void exit();
 
 private:
     void initialize_display();

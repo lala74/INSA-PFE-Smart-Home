@@ -9,11 +9,19 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     ui->setupUi(this);
     // Initialize the display
     initialize_display();
+    // Connect button
+    QPushButton* exitButton{ui->ExitButton};
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(exit()));
     // Start timer
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
     timer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
+}
+
+void Display::exit()
+{
+    Display::close();
 }
 
 void Display::initialize_display()
@@ -25,9 +33,11 @@ void Display::initialize_display()
 
 void Display::update_home_data_display()
 {
+#ifdef RASPBERRY_PI
+    DbManager dbManager("/home/pi/Workspace/PFE-Smart-Home/Data/data.db");
+#else
     DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
-    //    DbManager dbManager("/mnt/Etudie/5eme_Annee_S1/PFE/Code-projet/PFE-Smart-Home/Data/data.db");
-
+#endif
     mapValue = dbManager.get_outdoor_data();
     update_data();
     ui->IndoorTemp->setText(temperature);
