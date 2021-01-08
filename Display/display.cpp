@@ -27,8 +27,7 @@ void Display::exit()
 void Display::initialize_display()
 {
     update_home_data_display();
-    ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
-    ui->DateDisplay->setText(QDate::currentDate().toString("dd-MM-yyyy"));
+    timerEvent(nullptr);
 }
 
 void Display::update_home_data_display()
