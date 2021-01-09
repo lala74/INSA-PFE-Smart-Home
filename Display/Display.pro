@@ -1,5 +1,5 @@
 QT       += core gui
-QT       += sql
+QT       += sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,14 +13,19 @@ CONFIG(ARM):DEFINES += RASPBERRY_PI
 CONFIG(DESKTOP):DEFINES += DESKTOP
 
 SOURCES += \
+    datavisualization.cpp \
     dbmanager.cpp \
     main.cpp \
     display.cpp
 
 HEADERS += \
     constants.h \
+    datavisualization.h \
     dbmanager.h \
     display.h
+
+RESOURCES += \
+    sundata.qrc
 
 FORMS += \
     display.ui

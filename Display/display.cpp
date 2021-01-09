@@ -1,6 +1,7 @@
 #include "display.h"
 
 #include "constants.h"
+#include "datavisualization.h"
 #include "dbmanager.h"
 #include "ui_display.h"
 
@@ -21,6 +22,10 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
     timer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
+
+    DataVisualization data;
+    QChartView* chartView{ui->chartview};
+    chartView->setChart(data.get_charts());
 }
 
 void Display::exitButton_clicked()
@@ -46,11 +51,7 @@ void Display::initialize_display()
 
 void Display::update_home_data_display()
 {
-#ifdef RASPBERRY_PI
-    DbManager dbManager("/home/pi/PFE-Smart-Home/Data/data.db");
-#else
-    DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
-#endif
+    DbManager dbManager(database::path);
     mapValue = dbManager.get_outdoor_data();
     update_data();
     ui->IndoorTemp->setText(temperature);

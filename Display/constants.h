@@ -5,6 +5,14 @@
 
 namespace database
 {
+#ifdef RASPBERRY_PI
+const QString path("/home/pi/PFE-Smart-Home/Data/data.db");
+#else
+const QString path{"/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Data/data.db"};
+#endif
+
+const QString timestampFormat("yy-MM-dd hh:mm:ss");
+
 namespace column
 {
     const QString device{"device"};
@@ -16,6 +24,12 @@ namespace column
     const QString luminosity{"luminosity"};
 }  // namespace column
 }  // namespace database
+
+namespace sensorID
+{
+const QString outdoor{"sensorOutdoor"};
+const QString indoor{"sensorIndoor"};
+}  // namespace sensorID
 
 namespace display
 {
