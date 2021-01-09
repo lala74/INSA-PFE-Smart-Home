@@ -40,9 +40,9 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
-    <widget class="QWidget" name="page1">
+    <widget class="QWidget" name="page0">
      <widget class="QLabel" name="degreeLabel2">
       <property name="geometry">
        <rect>
@@ -418,7 +418,7 @@ color: #78C745;</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page2">
+    <widget class="QWidget" name="page1">
      <widget class="QLabel" name="IndoorLabel_2">
       <property name="geometry">
        <rect>
@@ -489,10 +489,24 @@ color: #FF8A27;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:#C00000;
-color:#FFFFFF;
-font: bold;
-border:none;;</string>
+     <string notr="true">QPushButton {
+	background-color:#C00000;
+	color:#FFFFFF;
+	font: bold;
+	border:none;;
+}
+
+QPushButton:hover {
+  background-color: #FF0000;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #FFBBBB;
+	color: black;
+	padding: 5px;
+}</string>
     </property>
     <property name="text">
      <string>X</string>
@@ -608,10 +622,24 @@ color: #FFFFFF;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:#161616;
-color:#FFFFFF;
-font: bold;
-border:none;;</string>
+     <string notr="true">QPushButton {
+	background-color:#161616;
+	color:#FFFFFF;
+	font: bold;
+	border:none;
+}
+
+QPushButton:hover {
+  background-color: #555555;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #a9a9a9;
+	color: black;
+	padding: 5px;
+}</string>
     </property>
     <property name="text">
      <string>1</string>
@@ -627,10 +655,24 @@ border:none;;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:#161616;
-color:#FFFFFF;
-font: bold;
-border:none;;</string>
+     <string notr="true">QPushButton {
+	background-color:#161616;
+	color:#FFFFFF;
+	font: bold;
+	border:none;
+}
+
+QPushButton:hover {
+  background-color: #555555;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #a9a9a9;
+	color: black;
+	padding: 5px;
+}</string>
     </property>
     <property name="text">
      <string>2</string>
