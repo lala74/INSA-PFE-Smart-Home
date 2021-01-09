@@ -19,11 +19,13 @@ public:
     ~Display();
 
 protected:
-    void timerEvent(QTimerEvent* event);
+    void timerEvent(QTimerEvent* event = nullptr);
 
 private slots:
     void update_home_data_display();
-    void exit();
+    void exitButton_clicked();
+    void page1Button_clicked();
+    void page2Button_clicked();
 
 private:
     void initialize_display();

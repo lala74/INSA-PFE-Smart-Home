@@ -11,7 +11,11 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     initialize_display();
     // Connect button
     QPushButton* exitButton{ui->ExitButton};
-    connect(exitButton, SIGNAL(clicked()), this, SLOT(exit()));
+    QPushButton* page1Button{ui->Page1Button};
+    QPushButton* page2Button{ui->Page2Button};
+    connect(exitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
+    connect(page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
+    connect(page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
     // Start timer
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
@@ -19,21 +23,31 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     startTimer(1000);  // 1-second timer for timeDisplay
 }
 
-void Display::exit()
+void Display::exitButton_clicked()
 {
     Display::close();
+}
+
+void Display::page1Button_clicked()
+{
+    ui->pages->setCurrentIndex(0);
+}
+
+void Display::page2Button_clicked()
+{
+    ui->pages->setCurrentIndex(1);
 }
 
 void Display::initialize_display()
 {
     update_home_data_display();
-    timerEvent(nullptr);
+    timerEvent();
 }
 
 void Display::update_home_data_display()
 {
 #ifdef RASPBERRY_PI
-    DbManager dbManager("/home/pi/Workspace/PFE-Smart-Home/Data/data.db");
+    DbManager dbManager("/home/pi/PFE-Smart-Home/Data/data.db");
 #else
     DbManager dbManager("/home/lala/Workspace/INSA-5eme/SmartHome/Github-PFE-Smart-Home/Display/data.db");
 #endif
