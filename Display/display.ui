@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>438</height>
+    <width>802</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="font">
@@ -18,7 +18,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Display</string>
+   <string>Home Sensor</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -30,300 +30,502 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="IndoorLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>80</y>
-      <width>351</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Ubuntu</family>
-      <pointsize>25</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 bold 25pt &quot;Ubuntu&quot;;
-color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>INDOOR</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="OutdoorLabel">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>70</y>
-      <width>181</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Ubuntu</family>
-      <pointsize>25</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 75 bold 25pt &quot;Ubuntu&quot;;
-color: #FF8A27;</string>
-    </property>
-    <property name="text">
-     <string>OUTDOOR</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="IndoorTemp">
+   <widget class="QStackedWidget" name="pages">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>260</y>
-      <width>301</width>
-      <height>131</height>
+      <y>70</y>
+      <width>800</width>
+      <height>480</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>100</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
+    <property name="currentIndex">
+     <number>1</number>
     </property>
-    <property name="styleSheet">
-     <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
+    <widget class="QWidget" name="page0">
+     <widget class="QLabel" name="degreeLabel2">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>310</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>°C</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorLum">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>101</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
 color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>27.7</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="IndoorHum">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>130</y>
-      <width>181</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>100</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
+      </property>
+      <property name="text">
+       <string>520</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorLum">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>160</y>
+        <width>121</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>480</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorLabel">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 bold 30pt &quot;Ubuntu&quot;;
 color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>80</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="IndoorMov">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>140</y>
-      <width>51</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>30</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
+      </property>
+      <property name="text">
+       <string>INDOOR</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="percentLabel">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>160</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
+color: #78C745;</string>
+      </property>
+      <property name="text">
+       <string>%</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="degreeLabel">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>310</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
+color: #78C745;</string>
+      </property>
+      <property name="text">
+       <string>°C</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorTemp">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>240</y>
+        <width>311</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>100</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>-25.6</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorMov">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>90</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
 color: #C00000;</string>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="IndoorLum">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>190</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>30</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorLabel">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>10</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>30</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 bold 30pt &quot;Ubuntu&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>OUTDOOR</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorTemp">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>240</y>
+        <width>301</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>100</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
 color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>520</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="OutdoorHum">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>130</y>
-      <width>181</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>100</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
+      </property>
+      <property name="text">
+       <string>-27.7</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorHum">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>100</y>
+        <width>181</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>100</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
 color: #FF8A27;</string>
-    </property>
-    <property name="text">
-     <string>75</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="OutdoorMov">
-    <property name="geometry">
-     <rect>
-      <x>450</x>
-      <y>140</y>
-      <width>51</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>30</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
+      </property>
+      <property name="text">
+       <string>75</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="percentLabel2">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>160</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>%</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorMov">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>90</y>
+        <width>51</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>30</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
 color: #C00000;</string>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorHum">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>100</y>
+        <width>181</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Digital-7 Mono</family>
+        <pointsize>100</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
+color: #78C745;</string>
+      </property>
+      <property name="text">
+       <string>80</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="Line" name="middleLine">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>0</y>
+        <width>20</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page1">
+     <widget class="QLabel" name="IndoorLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 bold 20pt &quot;Ubuntu&quot;;
+color: #78C745;</string>
+      </property>
+      <property name="text">
+       <string>INDOOR</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorLabel_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>221</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 75 bold 20pt &quot;Ubuntu&quot;;
+color: #FF8A27;</string>
+      </property>
+      <property name="text">
+       <string>OUTDOOR</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QtCharts::QChartView" name="chartview">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>10</y>
+        <width>631</width>
+        <height>361</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </widget>
-   <widget class="QLabel" name="OutdoorTemp">
+   <widget class="QPushButton" name="ExitButton">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>260</y>
-      <width>311</width>
-      <height>131</height>
+      <x>750</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>100</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">font: 100pt &quot;Digital-7 Mono&quot;;
-color: #FF8A27;</string>
+     <string notr="true">QPushButton {
+	background-color:#C00000;
+	color:#FFFFFF;
+	font: bold;
+	border:none;;
+}
+
+QPushButton:hover {
+  background-color: #FF0000;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #FFBBBB;
+	color: black;
+	padding: 5px;
+}</string>
     </property>
     <property name="text">
-     <string>25.6</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="OutdoorLum">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>190</y>
-      <width>121</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Digital-7 Mono</family>
-      <pointsize>30</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
-color: #FF8A27;</string>
-    </property>
-    <property name="text">
-     <string>480</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <string>X</string>
     </property>
    </widget>
    <widget class="QLabel" name="TimeDisplay">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>250</x>
       <y>0</y>
       <width>301</width>
       <height>61</height>
@@ -347,103 +549,6 @@ color: #FFFFFF;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="degreeLabel">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>330</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
-color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>°C</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="percentLabel">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>190</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
-color: #78C745;</string>
-    </property>
-    <property name="text">
-     <string>%</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="degreeLabel2">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>330</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
-color: #FF8A27;</string>
-    </property>
-    <property name="text">
-     <string>°C</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="percentLabel2">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>190</y>
-      <width>61</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: bold 30pt &quot;Ubuntu&quot;;
-color: #FF8A27;</string>
-    </property>
-    <property name="text">
-     <string>%</string>
-    </property>
-   </widget>
-   <widget class="Line" name="titleLine">
-    <property name="geometry">
-     <rect>
-      <x>-10</x>
-      <y>60</y>
-      <width>771</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="middleLine">
-    <property name="geometry">
-     <rect>
-      <x>357</x>
-      <y>70</y>
-      <width>20</width>
-      <height>351</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
     </property>
    </widget>
    <widget class="QLabel" name="DateDisplay">
@@ -504,19 +609,106 @@ color: #FFFFFF;</string>
      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="Line" name="titleLine">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>60</y>
+      <width>821</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Page1Button">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color:#161616;
+	color:#FFFFFF;
+	font: bold;
+	border:none;
+}
+
+QPushButton:hover {
+  background-color: #555555;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #a9a9a9;
+	color: black;
+	padding: 5px;
+}</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Page2Button">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color:#161616;
+	color:#FFFFFF;
+	font: bold;
+	border:none;
+}
+
+QPushButton:hover {
+  background-color: #555555;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #a9a9a9;
+	color: black;
+	padding: 5px;
+}</string>
+    </property>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>754</width>
+     <width>802</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtCharts::QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">QtCharts/QChartView&gt;
+#include &lt;QtCharts/chartsnamespace.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
