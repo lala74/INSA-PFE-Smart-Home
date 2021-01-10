@@ -52,6 +52,7 @@ QMap<QDateTime, QMap<QString, QVariant>> DbManager::get_data_follow_by_sensor_id
     QString cmd = "SELECT * FROM home_sensor WHERE (sensor_id = '" + sensor_id + "') AND (timestamp BETWEEN '" +
                   startTime.toString(database::timestampFormat) + "' AND '" +
                   endTime.toString(database::timestampFormat) + "')";
+    qDebug() << cmd;
     query.exec(cmd);
     while(query.next()) {
         QDateTime time(

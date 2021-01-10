@@ -5,58 +5,61 @@
 
 DataVisualization::DataVisualization() {}
 
-QChart* DataVisualization::get_charts()
+QChart* DataVisualization::get_charts(const QString& sensorId, const QString& dataName)
 {
-    QLineSeries* series = new QLineSeries();
-    QFile sunSpots(":sun");
-    if(!sunSpots.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qDebug() << "Open chart faileddddddddddddddddddddd";
-    }
-
-    QTextStream stream(&sunSpots);
-    while(!stream.atEnd()) {
-        QString line = stream.readLine();
-        if(line.startsWith("#") || line.startsWith(":")) continue;
-        QStringList values = line.split(" ", QString::SkipEmptyParts);
-        QDateTime momentInTime;
-        momentInTime.setDate(QDate(values[0].toInt(), values[1].toInt(), 15));
-        series->append(momentInTime.toMSecsSinceEpoch(), values[2].toDouble());
-    }
-    sunSpots.close();
-    //![2]
-
-    //![3]
+    QMap<QDateTime, QMap<QString, QVariant>> data = get_data_by_sensor_id(sensorId);
     QChart* chart = new QChart();
-    chart->addSeries(series);
-    chart->legend()->hide();
-    chart->setTitle("Sunspots count (by Space Weather Prediction Center)");
-    //![3]
+    QLineSeries* series = new QLineSeries();
+    QString axisLabelFormat{"%i"};
 
-    //![4]
+    for(auto const& key : data.keys()) {
+        series->append(key.toMSecsSinceEpoch(), data.value(key).value(dataName).toDouble());
+    }
+    // Setting series line
+    QRgb seriesColor(0xFFFFFF);
+    if(sensorId.compare(sensorID::indoor, Qt::CaseSensitive) == 0) {
+        seriesColor = QRgb(0x78C745);
+    } else if(sensorId.compare(sensorID::outdoor, Qt::CaseSensitive) == 0) {
+        seriesColor = QRgb(0xFF8A27);
+    }
+    QPen pen(seriesColor);
+    pen.setWidth(2);
+    series->setPen(pen);
+    // Set title font
+    QFont font;
+    font.setPixelSize(18);
+    font.setBold(true);
+    chart->setTitleFont(font);
+    chart->setTitleBrush(QBrush(Qt::white));
+    chart->setTitle(QString(dataName));
+    // Set background
+    chart->setBackgroundBrush(QColor("#262626"));
+
+    chart->legend()->hide();
+
     QDateTimeAxis* axisX = new QDateTimeAxis;
-    axisX->setTickCount(10);
-    axisX->setFormat("MMM yyyy");
-    axisX->setTitleText("Date");
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
+    axisX->setLabelsColor(Qt::white);
+    axisX->setFormat("dd-MM hh:mm");
+    axisX->setGridLineColor(QColor("#464646"));
 
     QValueAxis* axisY = new QValueAxis;
-    axisY->setLabelFormat("%i");
-    axisY->setTitleText("Sunspots count LAAAAAAAAAAAA");
+    axisY->setLabelsColor(Qt::white);
+    if(dataName.compare(database::column::temperature, Qt::CaseSensitive) == 0) {
+        axisLabelFormat = "%i C";
+    } else if(dataName.compare(database::column::humidity, Qt::CaseSensitive) == 0) {
+        axisLabelFormat = "%i %";
+    }
+    axisY->setLabelFormat(axisLabelFormat);
+    axisY->setGridLineColor(QColor("#464646"));
+
+    chart->addSeries(series);
+    chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
+
+    series->attachAxis(axisX);
     series->attachAxis(axisY);
 
     return chart;
-}
-
-void DataVisualization::update_outdoor_datas()
-{
-    outdoorDatas = get_data_by_sensor_id(sensorID::outdoor);
-}
-
-void DataVisualization::update_indoor_datas()
-{
-    outdoorDatas = get_data_by_sensor_id(sensorID::indoor);
 }
 
 QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_id(const QString& sensorId)
@@ -65,9 +68,12 @@ QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_i
     QDateTime startTime, endTime;
     QDate startDate = QDate::currentDate();
     startDate = startDate.addDays(-3);
+
     startTime.setDate(startDate);
     startTime.setTime(QTime::currentTime());
+
     endTime.setDate(QDate::currentDate());
     endTime.setTime(QTime::currentTime());
+
     return database.get_data_follow_by_sensor_id_and_time_interval(sensorId, startTime, endTime);
 }

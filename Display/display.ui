@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
-    <height>482</height>
+    <width>800</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="font">
@@ -419,13 +419,39 @@ color: #78C745;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="page1">
+     <widget class="QtCharts::QChartView" name="IndoorHumChart">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>190</y>
+        <width>800</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
+     </widget>
+     <widget class="QtCharts::QChartView" name="IndoorTempChart">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
+     </widget>
      <widget class="QLabel" name="IndoorLabel_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>620</x>
         <y>0</y>
-        <width>181</width>
-        <height>41</height>
+        <width>221</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="font">
@@ -448,11 +474,13 @@ color: #78C745;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="page2">
      <widget class="QLabel" name="OutdoorLabel_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>170</y>
+        <x>620</x>
+        <y>0</y>
         <width>221</width>
         <height>61</height>
        </rect>
@@ -477,16 +505,35 @@ color: #FF8A27;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QtCharts::QChartView" name="chartview">
+     <widget class="QtCharts::QChartView" name="OutdoorTempChart">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>10</y>
-        <width>631</width>
-        <height>361</height>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>191</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
      </widget>
+     <widget class="QtCharts::QChartView" name="OutdoorHumChart">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>190</y>
+        <width>800</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
+     </widget>
+     <zorder>OutdoorTempChart</zorder>
+     <zorder>OutdoorHumChart</zorder>
+     <zorder>OutdoorLabel_2</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="ExitButton">
@@ -625,7 +672,7 @@ color: #FFFFFF;</string>
    <widget class="QPushButton" name="Page1Button">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>620</x>
       <y>20</y>
       <width>31</width>
       <height>31</height>
@@ -658,7 +705,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="Page2Button">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>660</x>
       <y>20</y>
       <width>31</width>
       <height>31</height>
@@ -688,13 +735,65 @@ QPushButton:pressed {
      <string>2</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="Page3Button">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color:#161616;
+	color:#FFFFFF;
+	font: bold;
+	border:none;
+}
+
+QPushButton:hover {
+  background-color: #555555;
+  color: white;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	background-color: #a9a9a9;
+	color: black;
+	padding: 5px;
+}</string>
+    </property>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>10</y>
+      <width>80</width>
+      <height>47</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../../../../Downloads/INSA-logo-crop.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>802</width>
+     <width>800</width>
      <height>22</height>
     </rect>
    </property>

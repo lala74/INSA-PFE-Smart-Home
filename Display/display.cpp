@@ -14,18 +14,16 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     QPushButton* exitButton{ui->ExitButton};
     QPushButton* page1Button{ui->Page1Button};
     QPushButton* page2Button{ui->Page2Button};
+    QPushButton* page3Button{ui->Page3Button};
     connect(exitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
     connect(page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
     connect(page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
+    connect(page3Button, SIGNAL(clicked()), this, SLOT(page3Button_clicked()));
     // Start timer
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
     timer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
-
-    DataVisualization data;
-    QChartView* chartView{ui->chartview};
-    chartView->setChart(data.get_charts());
 }
 
 void Display::exitButton_clicked()
@@ -36,11 +34,19 @@ void Display::exitButton_clicked()
 void Display::page1Button_clicked()
 {
     ui->pages->setCurrentIndex(0);
+    ui->Page1Button->setStyleSheet(stylesheet::button::clicked);
 }
 
 void Display::page2Button_clicked()
 {
     ui->pages->setCurrentIndex(1);
+    ui->Page2Button->setStyleSheet(stylesheet::button::clicked);
+}
+
+void Display::page3Button_clicked()
+{
+    ui->pages->setCurrentIndex(2);
+    ui->Page3Button->setStyleSheet(stylesheet::button::clicked);
 }
 
 void Display::initialize_display()
@@ -54,10 +60,10 @@ void Display::update_home_data_display()
     DbManager dbManager(database::path);
     mapValue = dbManager.get_outdoor_data();
     update_data();
-    ui->IndoorTemp->setText(temperature);
-    ui->IndoorHum->setText(humidity);
-    ui->IndoorMov->setText(mouvement);
-    ui->IndoorLum->setText(luminosity);
+    ui->OutdoorTemp->setText(temperature);
+    ui->OutdoorHum->setText(humidity);
+    ui->OutdoorMov->setText(mouvement);
+    ui->OutdoorLum->setText(luminosity);
 
     qDebug() << database::column::device << mapValue.value(database::column::device).toString();
     qDebug() << database::column::sensor_id << mapValue.value(database::column::sensor_id).toString();
@@ -69,10 +75,29 @@ void Display::update_home_data_display()
 
     mapValue = dbManager.get_indoor_data();
     update_data();
-    ui->OutdoorTemp->setText(temperature);
-    ui->OutdoorHum->setText(humidity);
-    ui->OutdoorMov->setText(mouvement);
-    ui->OutdoorLum->setText(luminosity);
+    ui->IndoorTemp->setText(temperature);
+    ui->IndoorHum->setText(humidity);
+    ui->IndoorMov->setText(mouvement);
+    ui->IndoorLum->setText(luminosity);
+
+    DataVisualization data;
+    QChart* charts;
+
+    QChartView* outdoorTempChart{ui->OutdoorTempChart};
+    charts = data.get_charts(sensorID::outdoor, database::column::temperature);
+    outdoorTempChart->setChart(charts);
+
+    QChartView* outdoorHumChart{ui->OutdoorHumChart};
+    charts = data.get_charts(sensorID::outdoor, database::column::humidity);
+    outdoorHumChart->setChart(charts);
+
+    QChartView* indoorTempChart{ui->IndoorTempChart};
+    charts = data.get_charts(sensorID::indoor, database::column::temperature);
+    indoorTempChart->setChart(charts);
+
+    QChartView* indoorHumChart{ui->IndoorHumChart};
+    charts = data.get_charts(sensorID::indoor, database::column::humidity);
+    indoorHumChart->setChart(charts);
 }
 
 void Display::update_data()
@@ -88,6 +113,24 @@ void Display::timerEvent(QTimerEvent* /*event*/)
     ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->DateDisplay->setText(QDate::currentDate().toString("dd-MM-yyyy"));
     ui->DayDisplay->setText(QDate::currentDate().toString("dddd"));
+
+    ui->Page1Button->setStyleSheet(stylesheet::button::normal);
+    ui->Page2Button->setStyleSheet(stylesheet::button::normal);
+    ui->Page3Button->setStyleSheet(stylesheet::button::normal);
+    qint16 currentIndex = ui->pages->currentIndex();
+    if(currentIndex == 0) {
+        ui->Page1Button->setStyleSheet(stylesheet::button::clicked);
+        ui->Page2Button->setStyleSheet(stylesheet::button::normal);
+        ui->Page3Button->setStyleSheet(stylesheet::button::normal);
+    } else if(currentIndex == 1) {
+        ui->Page2Button->setStyleSheet(stylesheet::button::clicked);
+        ui->Page1Button->setStyleSheet(stylesheet::button::normal);
+        ui->Page3Button->setStyleSheet(stylesheet::button::normal);
+    } else if(currentIndex == 2) {
+        ui->Page3Button->setStyleSheet(stylesheet::button::clicked);
+        ui->Page1Button->setStyleSheet(stylesheet::button::normal);
+        ui->Page2Button->setStyleSheet(stylesheet::button::normal);
+    }
 }
 
 Display::~Display()

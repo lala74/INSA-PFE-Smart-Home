@@ -38,4 +38,21 @@ namespace timer
     const quint16 refreshtime{3000};  // refresh display every 3s
 }
 }  // namespace display
+
+namespace stylesheet
+{
+namespace button
+{
+    const QString normal{
+        "QPushButton { background-color:#161616; color:#FFFFFF; font: bold; border:none; } QPushButton:hover { "
+        "background-color: #555555; color: white; padding: 5px;} QPushButton:pressed { background-color: #a9a9a9; "
+        "color: black; padding: 5px; }"};
+    const QString clicked{
+        "QPushButton { background-color:#161616; color:#FFFFFF; font: bold; border:none; } QPushButton:hover { "
+        "background-color: #555555; color: white; padding: 5px;} QPushButton:pressed { background-color: #a9a9a9; "
+        "color: black; padding: 5px; }"};
+
+}  // namespace button
+}  // namespace stylesheet
+
 #endif  // CONSTANTS_H

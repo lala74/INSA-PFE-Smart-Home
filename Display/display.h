@@ -26,6 +26,7 @@ private slots:
     void exitButton_clicked();
     void page1Button_clicked();
     void page2Button_clicked();
+    void page3Button_clicked();
 
 private:
     void initialize_display();
