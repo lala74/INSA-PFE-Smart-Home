@@ -14,11 +14,11 @@ int compteur_mouv = 0;
 
 
 //WiFi (Connect ESP32 with WiFi)
-const char* ssid = "CoCuDo";                 // Your personal network SSID
-const char* wifi_password = "quocbaaoo";     // Your personal network password
+const char* ssid = "Lala";                 // Your personal network SSID
+const char* wifi_password = "minhduc12";     // Your personal network password
 
 //MQTT configuration
-const char* mqtt_server = "192.168.43.38";  // IP of the MQTT broker
+const char* mqtt_server = "172.20.10.11";  // IP of the MQTT broker
 const char* topic = "home/outdoor";
 const char* mqtt_username = "baoLE"; // MQTT username
 const char* mqtt_password = "12345678"; // MQTT password
@@ -35,6 +35,7 @@ float hum;
 float temp;
 float mouv;
 float lum;
+
 
 DHT dht(Pin_Temperature, DHT22);
 // Initialise the WiFi and MQTT Client objects
@@ -194,10 +195,25 @@ void encoding_Json(){
   JSONencoder.printTo(JSONmessageBuffer, sizeof(JSONmessageBuffer));
 }
 
+void makeMesuringCycle(){
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  char timestamp[30];
+  strftime(timestamp,30, "%S", &timeinfo);
+  int timeToi = atoi(timestamp);
+  if (timeToi == 0 || timeToi ==30 || timeToi== 45 || timeToi == 15){
+    makeData();
+    encoding_Json();
+    MQTT_Send_data();
+  }
+}
+
 void loop() {
 
-  makeData();
-  encoding_Json();
-  MQTT_Send_data();
+  makeMesuringCycle();
+
  
 }
