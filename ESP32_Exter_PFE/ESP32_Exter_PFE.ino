@@ -19,10 +19,10 @@ const char* wifi_password = "minhduc12";     // Your personal network password
 
 //MQTT configuration
 const char* mqtt_server = "172.20.10.11";  // IP of the MQTT broker
-const char* topic = "home/outdoor";
+const char* topic = "home/indoor";
 const char* mqtt_username = "baoLE"; // MQTT username
 const char* mqtt_password = "12345678"; // MQTT password
-const char* clientID = "sensorOutdoor"; // MQTT client ID
+const char* clientID = "sensorIndoor"; // MQTT client ID
 
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 3600;

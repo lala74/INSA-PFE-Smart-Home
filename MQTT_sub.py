@@ -14,9 +14,8 @@ MQTT_PASSWORD_DEFAUT = '12345678'
 MQTT_TOPIC_DEFAUT = 'home/#'
 
 class MQTT_sub:
-    def __init__(self,MQTT_id, MQTT_addr, MQTT_us, MQTT_pwd, MQTT_t):
+    def __init__(self, MQTT_addr, MQTT_us, MQTT_pwd, MQTT_t):
         # inialisation
-        self.MQTT_name = MQTT_id
         self.MQTT_ADDRESS = MQTT_addr
         self.MQTT_USER = MQTT_us
         self.MQTT_PASSWORD = MQTT_pwd
@@ -26,7 +25,7 @@ class MQTT_sub:
         self.dataAPI.create_table()
         self.dataAPI.export_to_csv()
         
-        self.mqtt_client = mqtt.Client(self.MQTT_name)
+        self.mqtt_client = mqtt.Client()
 
         self.mqtt_client.username_pw_set(self.MQTT_USER, self.MQTT_PASSWORD)
         self.mqtt_client.on_connect = self.on_connect
