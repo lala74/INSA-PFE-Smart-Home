@@ -31,7 +31,6 @@ class MQTT_sub:
         self.MQTT_PASSWORD = MQTT_pwd
         self.MQTT_TOPIC = MQTT_t
 
-        self.dataAPI.delete_database()
         self.dataAPI.create_table()
         self.dataAPI.export_to_csv()
         
