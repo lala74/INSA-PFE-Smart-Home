@@ -7,6 +7,7 @@ DbManager::DbManager(const QString& path)
     m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName(path);
 
+    qDebug() << "Database path:" << path;
     if(!m_db.open()) {
         qWarning() << "Database: Connection failed";
     } else {

@@ -419,32 +419,6 @@ color: #78C745;</string>
      </widget>
     </widget>
     <widget class="QWidget" name="page1">
-     <widget class="QtCharts::QChartView" name="IndoorHumChart">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>190</y>
-        <width>800</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:#262626;</string>
-      </property>
-     </widget>
-     <widget class="QtCharts::QChartView" name="IndoorTempChart">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>800</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color:#262626;</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="IndoorLabel_2">
       <property name="geometry">
        <rect>
@@ -474,6 +448,35 @@ color: #78C745;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
+     <widget class="QChartView" name="IndoorHumChart">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>190</y>
+        <width>801</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
+     </widget>
+     <widget class="QChartView" name="IndoorTempChart">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>-1</y>
+        <width>811</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#262626;</string>
+      </property>
+     </widget>
+     <zorder>IndoorHumChart</zorder>
+     <zorder>IndoorTempChart</zorder>
+     <zorder>IndoorLabel_2</zorder>
     </widget>
     <widget class="QWidget" name="page2">
      <widget class="QLabel" name="OutdoorLabel_2">
@@ -505,12 +508,12 @@ color: #FF8A27;</string>
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
       </property>
      </widget>
-     <widget class="QtCharts::QChartView" name="OutdoorTempChart">
+     <widget class="QChartView" name="OutdoorTempChart">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>800</width>
+        <width>801</width>
         <height>191</height>
        </rect>
       </property>
@@ -518,12 +521,12 @@ color: #FF8A27;</string>
        <string notr="true">background-color:#262626;</string>
       </property>
      </widget>
-     <widget class="QtCharts::QChartView" name="OutdoorHumChart">
+     <widget class="QChartView" name="OutdoorHumChart">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>190</y>
-        <width>800</width>
+        <y>191</y>
+        <width>801</width>
         <height>191</height>
        </rect>
       </property>
@@ -532,8 +535,8 @@ color: #FF8A27;</string>
       </property>
      </widget>
      <zorder>OutdoorTempChart</zorder>
-     <zorder>OutdoorHumChart</zorder>
      <zorder>OutdoorLabel_2</zorder>
+     <zorder>OutdoorHumChart</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="ExitButton">
@@ -802,10 +805,9 @@ QPushButton:pressed {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtCharts::QChartView</class>
+   <class>QChartView</class>
    <extends>QGraphicsView</extends>
-   <header location="global">QtCharts/QChartView&gt;
-#include &lt;QtCharts/chartsnamespace.h</header>
+   <header>QtCharts</header>
   </customwidget>
  </customwidgets>
  <resources/>
