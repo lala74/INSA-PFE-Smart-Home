@@ -14,15 +14,6 @@ MQTT_PASSWORD_DEFAUT = '12345678'
 MQTT_TOPIC_DEFAUT = 'home/#'
 
 class MQTT_sub:
-    MQTT_ADDRESS = ''
-    MQTT_USER = ''
-    MQTT_PASSWORD = ''
-    MQTT_TOPIC = ''
-    MQTT_name =''
-    dataAPI = DataBaseAPI()
-
-
-
     def __init__(self,MQTT_id, MQTT_addr, MQTT_us, MQTT_pwd, MQTT_t):
         # inialisation
         self.MQTT_name = MQTT_id
@@ -31,10 +22,11 @@ class MQTT_sub:
         self.MQTT_PASSWORD = MQTT_pwd
         self.MQTT_TOPIC = MQTT_t
 
+        self.dataAPI = DataBaseAPI()
         self.dataAPI.create_table()
         self.dataAPI.export_to_csv()
         
-        self.mqtt_client = mqtt.Client()
+        self.mqtt_client = mqtt.Client(self.MQTT_name)
 
         self.mqtt_client.username_pw_set(self.MQTT_USER, self.MQTT_PASSWORD)
         self.mqtt_client.on_connect = self.on_connect
@@ -66,8 +58,8 @@ class MQTT_sub:
 
 def main():
 
-    mySub1 = MQTT_sub('client 1','172.20.10.11', 'baoLE', '12345678', 'home/outdoor')
-    mySub2 = MQTT_sub('client 2','172.20.10.11', 'baoLE', '12345678', 'home/indoor')
+    mySub1 = MQTT_sub('172.20.10.11', 'baoLE', '12345678', 'home/outdoor')
+    mySub2 = MQTT_sub('172.20.10.11', 'baoLE', '12345678', 'home/indoor')
 
     mqtt.Client.connected_flag=False
     
