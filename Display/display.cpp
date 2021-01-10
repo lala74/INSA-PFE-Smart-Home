@@ -1,24 +1,26 @@
 #include "display.h"
 
+#include <QtCharts>
+
 #include "constants.h"
-#include "datavisualization.h"
 #include "dbmanager.h"
 #include "ui_display.h"
+
+using namespace QtCharts;
 
 Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
 {
     ui->setupUi(this);
     // Initialize the display
     initialize_display();
-    // Connect button
-    QPushButton* exitButton{ui->ExitButton};
-    QPushButton* page1Button{ui->Page1Button};
-    QPushButton* page2Button{ui->Page2Button};
-    QPushButton* page3Button{ui->Page3Button};
-    connect(exitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
-    connect(page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
-    connect(page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
-    connect(page3Button, SIGNAL(clicked()), this, SLOT(page3Button_clicked()));
+    // Link element
+
+    dataVisual = new DataVisualization();
+
+    connect(ui->ExitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
+    connect(ui->Page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
+    connect(ui->Page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
+    connect(ui->Page3Button, SIGNAL(clicked()), this, SLOT(page3Button_clicked()));
     // Start timer
     QTimer* timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
@@ -80,24 +82,17 @@ void Display::update_home_data_display()
     ui->IndoorMov->setText(mouvement);
     ui->IndoorLum->setText(luminosity);
 
-    DataVisualization data;
-    QChart* charts;
+    chart = dataVisual->get_charts(sensorID::indoor, database::column::temperature);
+    ui->IndoorTempChart->setChart(chart);
 
-    QChartView* outdoorTempChart{ui->OutdoorTempChart};
-    charts = data.get_charts(sensorID::outdoor, database::column::temperature);
-    outdoorTempChart->setChart(charts);
+    chart = dataVisual->get_charts(sensorID::indoor, database::column::humidity);
+    ui->IndoorHumChart->setChart(chart);
 
-    QChartView* outdoorHumChart{ui->OutdoorHumChart};
-    charts = data.get_charts(sensorID::outdoor, database::column::humidity);
-    outdoorHumChart->setChart(charts);
+    chart = dataVisual->get_charts(sensorID::outdoor, database::column::temperature);
+    ui->OutdoorTempChart->setChart(chart);
 
-    QChartView* indoorTempChart{ui->IndoorTempChart};
-    charts = data.get_charts(sensorID::indoor, database::column::temperature);
-    indoorTempChart->setChart(charts);
-
-    QChartView* indoorHumChart{ui->IndoorHumChart};
-    charts = data.get_charts(sensorID::indoor, database::column::humidity);
-    indoorHumChart->setChart(charts);
+    chart = dataVisual->get_charts(sensorID::outdoor, database::column::humidity);
+    ui->OutdoorHumChart->setChart(chart);
 }
 
 void Display::update_data()
@@ -135,5 +130,7 @@ void Display::timerEvent(QTimerEvent* /*event*/)
 
 Display::~Display()
 {
-    delete ui;
+    if(ui) delete ui;
+    if(dataVisual) delete dataVisual;
+    if(chart) delete chart;
 }

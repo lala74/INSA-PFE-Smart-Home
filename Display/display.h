@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QMap>
+#include <QPushButton>
+#include <QtCharts>
+
+#include "datavisualization.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -32,9 +36,13 @@ private:
     void initialize_display();
     void update_data();
 
-private:
+private:  // UI
     Ui::Display* ui;
+
+private:
     QMap<QString, QVariant> mapValue;
     QString temperature, humidity, mouvement, luminosity;
+    QChart* chart = nullptr;
+    DataVisualization* dataVisual = nullptr;
 };
 #endif  // DISPLAY_H

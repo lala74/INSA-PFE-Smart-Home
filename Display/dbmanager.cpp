@@ -63,9 +63,6 @@ QMap<QDateTime, QMap<QString, QVariant>> DbManager::get_data_follow_by_sensor_id
         mapValue.insert(database::column::humidity, query.value(database::column::humidity));
         mapValue.insert(database::column::luminosity, query.value(database::column::luminosity));
         returnVal.insert(time, mapValue);
-
-        qDebug() << time.toString(database::timestampFormat) << mapValue.value(database::column::temperature)
-                 << mapValue.value(database::column::humidity) << mapValue.value(database::column::luminosity);
     }
     return returnVal;
 }

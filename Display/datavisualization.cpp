@@ -33,14 +33,14 @@ QChart* DataVisualization::get_charts(const QString& sensorId, const QString& da
     chart->setTitleBrush(QBrush(Qt::white));
     chart->setTitle(QString(dataName));
     // Set background
-    chart->setBackgroundBrush(QColor("#262626"));
+    chart->setBackgroundBrush(QColor(0x26, 0x26, 0x26));
 
     chart->legend()->hide();
 
     QDateTimeAxis* axisX = new QDateTimeAxis;
     axisX->setLabelsColor(Qt::white);
     axisX->setFormat("dd-MM hh:mm");
-    axisX->setGridLineColor(QColor("#464646"));
+    axisX->setGridLineColor(QColor(0x46, 0x46, 0x46));
 
     QValueAxis* axisY = new QValueAxis;
     axisY->setLabelsColor(Qt::white);
