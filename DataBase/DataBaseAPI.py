@@ -65,9 +65,9 @@ class DataBaseAPI:
         value = self.cursor.execute(cmd)
         return value
 
-    def load_last_data(self):
+    def load_last_data(self, sensor_id):
         self.__connect()
-        cmd = 'SELECT * FROM ' + tableName + ' ORDER BY ' + date_name + ' DESC LIMIT 1'
+        cmd = 'SELECT * FROM ' + tableName + ' WHERE ' + sensor_id_name + '=' + "'" +str(sensor_id) + "'" + ' ORDER BY ' + date_name + ' DESC LIMIT 1'
         value = self.cursor.execute(cmd)
         return value
 
@@ -90,11 +90,11 @@ class DataBaseAPI:
             csv_writer.writerow([i[0] for i in c.description])
         self.__close()
 
-    def update_csv(self):
+    def update_csv(self,sensor_id):
         self.__connect()
         with open("./Data/data.csv", "a") as csv_file:
             csv_writer = csv.writer(csv_file, delimiter="\t")
-            csv_writer.writerows(self.load_last_data())
+            csv_writer.writerows(self.load_last_data(sensor_id))
         self.__close()
 
     def delete_database(self):

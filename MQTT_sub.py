@@ -43,7 +43,7 @@ class MQTT_sub:
         print("Converting from Json to Object")
         msg_in=json.loads(msg_decode) #decode json data
         self.dataAPI.insert_data(msg_in["device"],msg_in["sensorType"],msg_in["timestamp"], msg_in["temperature"], msg_in["humidity"],msg_in["mouvement"],msg_in["luminosity"])
-        self.dataAPI.update_csv()
+        self.dataAPI.update_csv(msg_in["sensorType"])
 
     def on_disconnect(self,client, userdata,rc=0):
         print("DisConnected result code "+str(rc))
