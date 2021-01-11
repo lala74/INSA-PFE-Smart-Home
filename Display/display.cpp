@@ -21,10 +21,15 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     connect(ui->Page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
     connect(ui->Page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
     connect(ui->Page3Button, SIGNAL(clicked()), this, SLOT(page3Button_clicked()));
-    // Start timer
-    QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
-    timer->start(display::timer::refreshtime);
+    // Timer
+    homeDisplayTimer = new QTimer(this);
+    indoorChartsTimer = new QTimer(this);
+    outdoorChartsTimer = new QTimer(this);
+    connect(homeDisplayTimer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
+    connect(indoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_indoor_charts()));
+    connect(outdoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_outdoor_charts()));
+    // Start Timer
+    homeDisplayTimer->start(display::timer::refreshtime);
     startTimer(1000);  // 1-second timer for timeDisplay
 }
 
@@ -36,21 +41,31 @@ void Display::exitButton_clicked()
 void Display::page1Button_clicked()
 {
     ui->pages->setCurrentIndex(0);
+    indoorChartsTimer->stop();
+    outdoorChartsTimer->stop();
 }
 
 void Display::page2Button_clicked()
 {
+    update_indoor_charts();
+    indoorChartsTimer->start(display::timer::refreshtime);
+    outdoorChartsTimer->stop();
     ui->pages->setCurrentIndex(1);
 }
 
 void Display::page3Button_clicked()
 {
+    update_outdoor_charts();
+    indoorChartsTimer->stop();
+    outdoorChartsTimer->start(display::timer::refreshtime);
     ui->pages->setCurrentIndex(2);
 }
 
 void Display::initialize_display()
 {
     update_home_data_display();
+    update_indoor_charts();
+    update_outdoor_charts();
     timerEvent();
 }
 
@@ -77,14 +92,20 @@ void Display::update_home_data_display()
     ui->IndoorHum->setText(humidity);
     ui->IndoorMov->setText(mouvement);
     ui->IndoorLum->setText(luminosity);
+}
 
+void Display::update_indoor_charts()
+{
     QList<QChart*> listCharts;
     listCharts = dataVisual->get_charts(sensorID::indoor);
     tempChart = listCharts.takeFirst();
     humChart = listCharts.takeLast();
     ui->IndoorTempChart->setChart(tempChart);
     ui->IndoorHumChart->setChart(humChart);
-
+}
+void Display::update_outdoor_charts()
+{
+    QList<QChart*> listCharts;
     listCharts = dataVisual->get_charts(sensorID::outdoor);
     tempChart = listCharts.takeFirst();
     humChart = listCharts.takeLast();
@@ -112,4 +133,7 @@ Display::~Display()
     if(ui) delete ui;
     if(dataVisual) delete dataVisual;
     if(tempChart) delete tempChart;
+    homeDisplayTimer->stop();
+    indoorChartsTimer->stop();
+    outdoorChartsTimer->stop();
 }

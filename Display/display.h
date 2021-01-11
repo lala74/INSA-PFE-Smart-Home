@@ -27,6 +27,8 @@ protected:
 
 private slots:
     void update_home_data_display();
+    void update_indoor_charts();
+    void update_outdoor_charts();
     void exitButton_clicked();
     void page1Button_clicked();
     void page2Button_clicked();
@@ -45,5 +47,8 @@ private:
     QChart* tempChart = nullptr;
     QChart* humChart = nullptr;
     DataVisualization* dataVisual = nullptr;
+    QTimer* homeDisplayTimer;
+    QTimer* indoorChartsTimer;
+    QTimer* outdoorChartsTimer;
 };
 #endif  // DISPLAY_H
