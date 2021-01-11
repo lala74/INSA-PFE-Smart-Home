@@ -45,10 +45,9 @@ QMap<QString, QVariant> DbManager::get_last_data_follow_by_sensor_id(const QStri
     return returnVal;
 }
 
-QMap<QDateTime, QMap<QString, QVariant>> DbManager::get_data_follow_by_sensor_id_and_time_interval(
-    const QString& sensor_id, QDateTime startTime, QDateTime endTime)
+qint8 DbManager::get_data_follow_by_sensor_id_and_time_interval(
+    const QString& sensor_id, QDateTime startTime, QDateTime endTime, QLineSeries* tempSeries, QLineSeries* humSeries)
 {
-    QMap<QDateTime, QMap<QString, QVariant>> returnVal;
     QSqlQuery query;
     QString cmd = "SELECT * FROM home_sensor WHERE (sensor_id = '" + sensor_id + "') AND (timestamp BETWEEN '" +
                   startTime.toString(database::timestampFormat) + "' AND '" +
@@ -58,11 +57,8 @@ QMap<QDateTime, QMap<QString, QVariant>> DbManager::get_data_follow_by_sensor_id
     while(query.next()) {
         QDateTime time(
             QDateTime::fromString(query.value(database::column::timestamp).toString(), database::timestampFormat));
-        QMap<QString, QVariant> mapValue;
-        mapValue.insert(database::column::temperature, query.value(database::column::temperature));
-        mapValue.insert(database::column::humidity, query.value(database::column::humidity));
-        mapValue.insert(database::column::luminosity, query.value(database::column::luminosity));
-        returnVal.insert(time, mapValue);
+        tempSeries->append(time.toMSecsSinceEpoch(), query.value(database::column::temperature).toDouble());
+        humSeries->append(time.toMSecsSinceEpoch(), query.value(database::column::humidity).toDouble());
     }
-    return returnVal;
+    return 0;
 }

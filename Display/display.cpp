@@ -36,19 +36,16 @@ void Display::exitButton_clicked()
 void Display::page1Button_clicked()
 {
     ui->pages->setCurrentIndex(0);
-    ui->Page1Button->setStyleSheet(stylesheet::button::clicked);
 }
 
 void Display::page2Button_clicked()
 {
     ui->pages->setCurrentIndex(1);
-    ui->Page2Button->setStyleSheet(stylesheet::button::clicked);
 }
 
 void Display::page3Button_clicked()
 {
     ui->pages->setCurrentIndex(2);
-    ui->Page3Button->setStyleSheet(stylesheet::button::clicked);
 }
 
 void Display::initialize_display()
@@ -81,17 +78,18 @@ void Display::update_home_data_display()
     ui->IndoorMov->setText(mouvement);
     ui->IndoorLum->setText(luminosity);
 
-    chart = dataVisual->get_charts(sensorID::indoor, database::column::temperature);
-    ui->IndoorTempChart->setChart(chart);
+    QList<QChart*> listCharts;
+    listCharts = dataVisual->get_charts(sensorID::indoor);
+    tempChart = listCharts.takeFirst();
+    humChart = listCharts.takeLast();
+    ui->IndoorTempChart->setChart(tempChart);
+    ui->IndoorHumChart->setChart(humChart);
 
-    chart = dataVisual->get_charts(sensorID::indoor, database::column::humidity);
-    ui->IndoorHumChart->setChart(chart);
-
-    chart = dataVisual->get_charts(sensorID::outdoor, database::column::temperature);
-    ui->OutdoorTempChart->setChart(chart);
-
-    chart = dataVisual->get_charts(sensorID::outdoor, database::column::humidity);
-    ui->OutdoorHumChart->setChart(chart);
+    listCharts = dataVisual->get_charts(sensorID::outdoor);
+    tempChart = listCharts.takeFirst();
+    humChart = listCharts.takeLast();
+    ui->OutdoorTempChart->setChart(tempChart);
+    ui->OutdoorHumChart->setChart(humChart);
 }
 
 void Display::update_data()
@@ -107,29 +105,11 @@ void Display::timerEvent(QTimerEvent* /*event*/)
     ui->TimeDisplay->setText(QTime::currentTime().toString("hh:mm:ss"));
     ui->DateDisplay->setText(QDate::currentDate().toString("dd-MM-yyyy"));
     ui->DayDisplay->setText(QDate::currentDate().toString("dddd"));
-
-    ui->Page1Button->setStyleSheet(stylesheet::button::normal);
-    ui->Page2Button->setStyleSheet(stylesheet::button::normal);
-    ui->Page3Button->setStyleSheet(stylesheet::button::normal);
-    qint16 currentIndex = ui->pages->currentIndex();
-    if(currentIndex == 0) {
-        ui->Page1Button->setStyleSheet(stylesheet::button::clicked);
-        ui->Page2Button->setStyleSheet(stylesheet::button::normal);
-        ui->Page3Button->setStyleSheet(stylesheet::button::normal);
-    } else if(currentIndex == 1) {
-        ui->Page2Button->setStyleSheet(stylesheet::button::clicked);
-        ui->Page1Button->setStyleSheet(stylesheet::button::normal);
-        ui->Page3Button->setStyleSheet(stylesheet::button::normal);
-    } else if(currentIndex == 2) {
-        ui->Page3Button->setStyleSheet(stylesheet::button::clicked);
-        ui->Page1Button->setStyleSheet(stylesheet::button::normal);
-        ui->Page2Button->setStyleSheet(stylesheet::button::normal);
-    }
 }
 
 Display::~Display()
 {
     if(ui) delete ui;
     if(dataVisual) delete dataVisual;
-    if(chart) delete chart;
+    if(tempChart) delete tempChart;
 }

@@ -9,10 +9,10 @@ class DataVisualization : public QObject
     Q_OBJECT
 public:
     DataVisualization();
-    QChart* get_charts(const QString& sensorId, const QString& dataName);
+    QList<QChart*> get_charts(const QString& sensorId);
 
 private:
-    QMap<QDateTime, QMap<QString, QVariant>> get_data_by_sensor_id(const QString& sensorId);
+    void build_series_by_sensor_id(const QString& sensorId, QLineSeries* tempSeries, QLineSeries* humSeries);
 };
 
 #endif  // DATAVISUALIZATION_H

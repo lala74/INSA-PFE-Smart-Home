@@ -3,39 +3,26 @@
 #include "constants.h"
 #include "dbmanager.h"
 
-DataVisualization::DataVisualization() {}
-
-QChart* DataVisualization::get_charts(const QString& sensorId, const QString& dataName)
+void build_chart(QChart* chart, const QString& title)
 {
-    QMap<QDateTime, QMap<QString, QVariant>> data = get_data_by_sensor_id(sensorId);
-    QChart* chart = new QChart();
-    QLineSeries* series = new QLineSeries();
-    QString axisLabelFormat{"%i"};
-
-    for(auto const& key : data.keys()) {
-        series->append(key.toMSecsSinceEpoch(), data.value(key).value(dataName).toDouble());
-    }
-    // Setting series line
-    QRgb seriesColor(0xFFFFFF);
-    if(sensorId.compare(sensorID::indoor, Qt::CaseSensitive) == 0) {
-        seriesColor = QRgb(0x78C745);
-    } else if(sensorId.compare(sensorID::outdoor, Qt::CaseSensitive) == 0) {
-        seriesColor = QRgb(0xFF8A27);
-    }
-    QPen pen(seriesColor);
-    pen.setWidth(2);
-    series->setPen(pen);
     // Set title font
     QFont font;
     font.setPixelSize(18);
     font.setBold(true);
     chart->setTitleFont(font);
     chart->setTitleBrush(QBrush(Qt::white));
-    chart->setTitle(QString(dataName));
+    chart->setTitle(title);
     // Set background
     chart->setBackgroundBrush(QColor(0x26, 0x26, 0x26));
 
     chart->legend()->hide();
+}
+
+void add_serie_to_chart(QChart* chart, QLineSeries* serie, QRgb serieColor, const QString& axisLabelFormat)
+{
+    QPen pen(serieColor);
+    pen.setWidth(2);
+    serie->setPen(pen);
 
     QDateTimeAxis* axisX = new QDateTimeAxis;
     axisX->setLabelsColor(Qt::white);
@@ -44,25 +31,46 @@ QChart* DataVisualization::get_charts(const QString& sensorId, const QString& da
 
     QValueAxis* axisY = new QValueAxis;
     axisY->setLabelsColor(Qt::white);
-    if(dataName.compare(database::column::temperature, Qt::CaseSensitive) == 0) {
-        axisLabelFormat = "%i C";
-    } else if(dataName.compare(database::column::humidity, Qt::CaseSensitive) == 0) {
-        axisLabelFormat = "%i %";
-    }
+
     axisY->setLabelFormat(axisLabelFormat);
     axisY->setGridLineColor(QColor("#464646"));
 
-    chart->addSeries(series);
+    chart->addSeries(serie);
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
 
-    series->attachAxis(axisX);
-    series->attachAxis(axisY);
-
-    return chart;
+    serie->attachAxis(axisX);
+    serie->attachAxis(axisY);
 }
 
-QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_id(const QString& sensorId)
+DataVisualization::DataVisualization() {}
+
+QList<QChart*> DataVisualization::get_charts(const QString& sensorId)
+{
+    QChart* tempChart = new QChart();
+    QChart* humChart = new QChart();
+    QLineSeries* tempSeries = new QLineSeries();
+    QLineSeries* humSeries = new QLineSeries();
+    build_series_by_sensor_id(sensorId, tempSeries, humSeries);
+
+    QRgb serieColor(0xFFFFFF);
+    if(sensorId.compare(sensorID::indoor, Qt::CaseSensitive) == 0) {
+        serieColor = QRgb(0x78C745);
+    } else if(sensorId.compare(sensorID::outdoor, Qt::CaseSensitive) == 0) {
+        serieColor = QRgb(0xFF8A27);
+    }
+
+    build_chart(tempChart, database::column::temperature);
+    add_serie_to_chart(tempChart, tempSeries, serieColor, "%i C");
+    build_chart(humChart, database::column::humidity);
+    add_serie_to_chart(humChart, humSeries, serieColor, "%i %");
+
+    return QList<QChart*>{tempChart, humChart};
+}
+
+void DataVisualization::build_series_by_sensor_id(const QString& sensorId,
+                                                  QLineSeries* tempSeries,
+                                                  QLineSeries* humSeries)
 {
     QDateTime startTime, endTime;
     QDate startDate = QDate::currentDate();
@@ -74,5 +82,6 @@ QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_i
     endTime.setDate(QDate::currentDate());
     endTime.setTime(QTime::currentTime());
 
-    return DbManager::instance().get_data_follow_by_sensor_id_and_time_interval(sensorId, startTime, endTime);
+    DbManager::instance().get_data_follow_by_sensor_id_and_time_interval(
+        sensorId, startTime, endTime, tempSeries, humSeries);
 }

@@ -42,7 +42,8 @@ private:  // UI
 private:
     QMap<QString, QVariant> mapValue;
     QString temperature, humidity, mouvement, luminosity;
-    QChart* chart = nullptr;
+    QChart* tempChart = nullptr;
+    QChart* humChart = nullptr;
     DataVisualization* dataVisual = nullptr;
 };
 #endif  // DISPLAY_H
