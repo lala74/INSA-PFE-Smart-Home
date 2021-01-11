@@ -64,7 +64,6 @@ QChart* DataVisualization::get_charts(const QString& sensorId, const QString& da
 
 QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_id(const QString& sensorId)
 {
-    DbManager database(database::path);
     QDateTime startTime, endTime;
     QDate startDate = QDate::currentDate();
     startDate = startDate.addDays(-3);
@@ -75,5 +74,5 @@ QMap<QDateTime, QMap<QString, QVariant>> DataVisualization::get_data_by_sensor_i
     endTime.setDate(QDate::currentDate());
     endTime.setTime(QTime::currentTime());
 
-    return database.get_data_follow_by_sensor_id_and_time_interval(sensorId, startTime, endTime);
+    return DbManager::instance().get_data_follow_by_sensor_id_and_time_interval(sensorId, startTime, endTime);
 }

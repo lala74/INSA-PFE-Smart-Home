@@ -4,16 +4,29 @@
 #include <QObject>
 #include <QtSql>
 
+#include "constants.h"
+
 class DbManager : public QObject
 {
     Q_OBJECT
 public:
-    DbManager(const QString& path);
+    static DbManager& instance()
+    {
+        static DbManager* _instance = 0;
+        if(_instance == 0) {
+            _instance = new DbManager(database::path);
+        }
+        return *_instance;
+    }
     QMap<QString, QVariant> get_outdoor_data();
     QMap<QString, QVariant> get_indoor_data();
     QMap<QDateTime, QMap<QString, QVariant>> get_data_follow_by_sensor_id_and_time_interval(const QString& sensor_id,
                                                                                             QDateTime startTime,
                                                                                             QDateTime endTime);
+
+private:
+    DbManager(const QString& path);
+    DbManager(const DbManager&) {}
 
 private:
     QMap<QString, QVariant> get_last_data_follow_by_sensor_id(const QString& sensor_id);

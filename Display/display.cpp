@@ -59,8 +59,7 @@ void Display::initialize_display()
 
 void Display::update_home_data_display()
 {
-    DbManager dbManager(database::path);
-    mapValue = dbManager.get_outdoor_data();
+    mapValue = DbManager::instance().get_outdoor_data();
     update_data();
     ui->OutdoorTemp->setText(temperature);
     ui->OutdoorHum->setText(humidity);
@@ -75,7 +74,7 @@ void Display::update_home_data_display()
     qDebug() << database::column::mouvement << mouvement;
     qDebug() << database::column::luminosity << luminosity;
 
-    mapValue = dbManager.get_indoor_data();
+    mapValue = DbManager::instance().get_indoor_data();
     update_data();
     ui->IndoorTemp->setText(temperature);
     ui->IndoorHum->setText(humidity);
