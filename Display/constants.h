@@ -19,7 +19,7 @@ namespace column
     const QString sensor_id{"sensor_id"};
     const QString timestamp{"timestamp"};
     const QString temperature{"temperature"};
-    const QString humidity{"humidiy"};
+    const QString humidity{"humidity"};
     const QString mouvement{"mouvement"};
     const QString luminosity{"luminosity"};
 }  // namespace column

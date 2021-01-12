@@ -465,8 +465,8 @@ color: #78C745;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1</y>
-        <width>811</width>
+        <y>0</y>
+        <width>801</width>
         <height>191</height>
        </rect>
       </property>
@@ -525,7 +525,7 @@ color: #FF8A27;</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>191</y>
+        <y>190</y>
         <width>801</width>
         <height>191</height>
        </rect>

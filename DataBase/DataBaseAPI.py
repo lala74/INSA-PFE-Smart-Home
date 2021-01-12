@@ -16,7 +16,7 @@ device_name = 'device'
 sensor_id_name = 'sensor_id'
 date_name = 'timestamp'
 temp_name = 'temperature'
-humid_name = 'humidiy'
+humid_name = 'humidity'
 mouv_name = 'mouvement'
 lum_name = 'luminosity'
 
