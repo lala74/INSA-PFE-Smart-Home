@@ -10,7 +10,7 @@ This project concern the development of an application on Raspberry Pi to displa
 
 ![Rasp's Screen](./img/home_sensor.png)  
 
-Final product
+**Final product**
 
 ![Final product](https://media.giphy.com/media/nIzKWjiOngCVBZiekE/giphy.gif)
 
