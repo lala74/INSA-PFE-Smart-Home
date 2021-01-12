@@ -1,6 +1,7 @@
 #define Pin_Mouvement 18    //Pin 18
 #define Pin_Luminier 19      //Pin 19
 #define Pin_Temperature 21   //Pin 21
+#define ONBOARD_LED  2
 
 int sensor_luminote = 0;
 int compteur_mouv = 0;
@@ -18,7 +19,7 @@ const char* ssid = "Lala";                 // Your personal network SSID
 const char* wifi_password = "minhduc12";     // Your personal network password
 
 //MQTT configuration
-const char* mqtt_server = "172.20.10.11";  // IP of the MQTT broker
+const char* mqtt_server = "192.168.43.48";  // IP of the MQTT broker
 const char* topic = "home/indoor";
 const char* mqtt_username = "baoLE"; // MQTT username
 const char* mqtt_password = "12345678"; // MQTT password
@@ -62,6 +63,11 @@ void MQTT_reconnect() {
   
 }
 
+void blick_led() {
+  digitalWrite(ONBOARD_LED,HIGH);
+  delay(100);
+  digitalWrite(ONBOARD_LED,LOW);
+}
 
 void setup() {
   Serial.begin(115200);
@@ -87,6 +93,7 @@ void setup() {
   pinMode(Pin_Mouvement, INPUT);
   pinMode(Pin_Luminier, INPUT);
   pinMode(Pin_Temperature, INPUT);
+  pinMode(ONBOARD_LED,OUTPUT);
 
   Serial.println("Device Started");
   Serial.println("-------------------------------------");
@@ -166,6 +173,7 @@ void MQTT_Send_data() {
   //if (client.publish(topic, String(data).c_str())) {
   if (client.publish(topic, JSONmessageBuffer) == true) {
     Serial.println("Success sending message");
+    blick_led();
   }
   else {
     Serial.println("data failed to send. Reconnecting to MQTT Broker and trying again");

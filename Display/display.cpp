@@ -29,7 +29,7 @@ Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
     connect(indoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_indoor_charts()));
     connect(outdoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_outdoor_charts()));
     // Start Timer
-    homeDisplayTimer->start(display::timer::refreshtime);
+    homeDisplayTimer->start(display::timer::homeDisplay);
     startTimer(1000);  // 1-second timer for timeDisplay
 }
 
@@ -48,7 +48,7 @@ void Display::page1Button_clicked()
 void Display::page2Button_clicked()
 {
     update_indoor_charts();
-    indoorChartsTimer->start(display::timer::refreshtime);
+    indoorChartsTimer->start(display::timer::charts);
     outdoorChartsTimer->stop();
     ui->pages->setCurrentIndex(1);
 }
@@ -57,7 +57,7 @@ void Display::page3Button_clicked()
 {
     update_outdoor_charts();
     indoorChartsTimer->stop();
-    outdoorChartsTimer->start(display::timer::refreshtime);
+    outdoorChartsTimer->start(display::timer::charts);
     ui->pages->setCurrentIndex(2);
 }
 
