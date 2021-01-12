@@ -21,7 +21,7 @@ public:
     }
     QMap<QString, QVariant> get_outdoor_data();
     QMap<QString, QVariant> get_indoor_data();
-    qint8 get_data_follow_by_sensor_id_and_time_interval(const QString& sensor_id,
+    qint8 build_series_by_sensor_id_and_time_interval(const QString& sensor_id,
                                                          QDateTime startTime,
                                                          QDateTime endTime,
                                                          QLineSeries* tempSeries,

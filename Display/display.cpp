@@ -8,7 +8,15 @@
 
 using namespace QtCharts;
 
-Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display)
+Display::Display(QWidget* parent)
+    : QMainWindow(parent),
+      ui(new Ui::Display),
+      tempChart(nullptr),
+      humChart(nullptr),
+      dataVisual(nullptr),
+      homeDisplayTimer(nullptr),
+      indoorChartsTimer(nullptr),
+      outdoorChartsTimer(nullptr)
 {
     ui->setupUi(this);
     // Initialize the display
@@ -63,10 +71,8 @@ void Display::page3Button_clicked()
 
 void Display::initialize_display()
 {
-    update_home_data_display();
-    update_indoor_charts();
-    update_outdoor_charts();
     timerEvent();
+    update_home_data_display();
 }
 
 void Display::update_home_data_display()
@@ -94,6 +100,14 @@ void Display::update_home_data_display()
     ui->IndoorLum->setText(luminosity);
 }
 
+void Display::update_data()
+{
+    temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1);
+    humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 0);
+    mouvement = mapValue.value(database::column::mouvement).toString();
+    luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 1);
+}
+
 void Display::update_indoor_charts()
 {
     QList<QChart*> listCharts;
@@ -111,14 +125,6 @@ void Display::update_outdoor_charts()
     humChart = listCharts.takeLast();
     ui->OutdoorTempChart->setChart(tempChart);
     ui->OutdoorHumChart->setChart(humChart);
-}
-
-void Display::update_data()
-{
-    temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1);
-    humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 0);
-    mouvement = mapValue.value(database::column::mouvement).toString();
-    luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 1);
 }
 
 void Display::timerEvent(QTimerEvent* /*event*/)

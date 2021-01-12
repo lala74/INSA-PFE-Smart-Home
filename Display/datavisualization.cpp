@@ -3,46 +3,6 @@
 #include "constants.h"
 #include "dbmanager.h"
 
-void build_chart(QChart* chart, const QString& title)
-{
-    // Set title font
-    QFont font;
-    font.setPixelSize(18);
-    font.setBold(true);
-    chart->setTitleFont(font);
-    chart->setTitleBrush(QBrush(Qt::white));
-    chart->setTitle(title);
-    // Set background
-    chart->setBackgroundBrush(QColor(0x26, 0x26, 0x26));
-
-    chart->legend()->hide();
-}
-
-void add_serie_to_chart(QChart* chart, QLineSeries* serie, QRgb serieColor, const QString& axisLabelFormat)
-{
-    QPen pen(serieColor);
-    pen.setWidth(2);
-    serie->setPen(pen);
-
-    QDateTimeAxis* axisX = new QDateTimeAxis;
-    axisX->setLabelsColor(Qt::white);
-    axisX->setFormat("dd-MM hh:mm");
-    axisX->setGridLineColor(QColor(0x46, 0x46, 0x46));
-
-    QValueAxis* axisY = new QValueAxis;
-    axisY->setLabelsColor(Qt::white);
-
-    axisY->setLabelFormat(axisLabelFormat);
-    axisY->setGridLineColor(QColor("#464646"));
-
-    chart->addSeries(serie);
-    chart->addAxis(axisX, Qt::AlignBottom);
-    chart->addAxis(axisY, Qt::AlignLeft);
-
-    serie->attachAxis(axisX);
-    serie->attachAxis(axisY);
-}
-
 DataVisualization::DataVisualization() {}
 
 QList<QChart*> DataVisualization::get_charts(const QString& sensorId)
@@ -82,6 +42,49 @@ void DataVisualization::build_series_by_sensor_id(const QString& sensorId,
     endTime.setDate(QDate::currentDate());
     endTime.setTime(QTime::currentTime());
 
-    DbManager::instance().get_data_follow_by_sensor_id_and_time_interval(
+    DbManager::instance().build_series_by_sensor_id_and_time_interval(
         sensorId, startTime, endTime, tempSeries, humSeries);
+}
+
+void DataVisualization::build_chart(QChart* chart, const QString& title)
+{
+    // Set title font
+    QFont font;
+    font.setPixelSize(18);
+    font.setBold(true);
+    chart->setTitleFont(font);
+    chart->setTitleBrush(QBrush(Qt::white));
+    chart->setTitle(title);
+    // Set background
+    chart->setBackgroundBrush(QColor(0x26, 0x26, 0x26));
+
+    chart->legend()->hide();
+}
+
+void DataVisualization::add_serie_to_chart(QChart* chart,
+                                           QLineSeries* serie,
+                                           QRgb serieColor,
+                                           const QString& axisLabelFormat)
+{
+    QPen pen(serieColor);
+    pen.setWidth(2);
+    serie->setPen(pen);
+
+    QDateTimeAxis* axisX = new QDateTimeAxis;
+    axisX->setLabelsColor(Qt::white);
+    axisX->setFormat("dd-MM hh:mm");
+    axisX->setGridLineColor(QColor(0x46, 0x46, 0x46));
+
+    QValueAxis* axisY = new QValueAxis;
+    axisY->setLabelsColor(Qt::white);
+
+    axisY->setLabelFormat(axisLabelFormat);
+    axisY->setGridLineColor(QColor("#464646"));
+
+    chart->addSeries(serie);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    chart->addAxis(axisY, Qt::AlignLeft);
+
+    serie->attachAxis(axisX);
+    serie->attachAxis(axisY);
 }

@@ -44,9 +44,10 @@ private:  // UI
 private:
     QMap<QString, QVariant> mapValue;
     QString temperature, humidity, mouvement, luminosity;
-    QChart* tempChart = nullptr;
-    QChart* humChart = nullptr;
-    DataVisualization* dataVisual = nullptr;
+
+    QChart* tempChart;
+    QChart* humChart;
+    DataVisualization* dataVisual;
     QTimer* homeDisplayTimer;
     QTimer* indoorChartsTimer;
     QTimer* outdoorChartsTimer;

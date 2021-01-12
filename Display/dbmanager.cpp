@@ -45,7 +45,7 @@ QMap<QString, QVariant> DbManager::get_last_data_follow_by_sensor_id(const QStri
     return returnVal;
 }
 
-qint8 DbManager::get_data_follow_by_sensor_id_and_time_interval(
+qint8 DbManager::build_series_by_sensor_id_and_time_interval(
     const QString& sensor_id, QDateTime startTime, QDateTime endTime, QLineSeries* tempSeries, QLineSeries* humSeries)
 {
     QSqlQuery query;
