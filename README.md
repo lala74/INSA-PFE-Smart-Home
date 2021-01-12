@@ -12,7 +12,7 @@ This project concern the development of an application on Raspberry Pi to displa
 
 Final product
 
-![Final product](https://imgur.com/yuvtJgr)
+![Final product](https://media.giphy.com/media/nIzKWjiOngCVBZiekE/giphy.gif)
 
 ## 2. Project description
 
