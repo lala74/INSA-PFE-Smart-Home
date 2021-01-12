@@ -8,7 +8,11 @@
 
 This project concern the development of an application on Raspberry Pi to display data from multi sensors.  
 
-![Rasp's Screen](./img/home_sensor.png)
+![Rasp's Screen](./img/home_sensor.png)  
+
+Final product
+
+![Final product](https://imgur.com/yuvtJgr)
 
 ## 2. Project description
 
