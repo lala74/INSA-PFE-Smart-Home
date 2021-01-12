@@ -10,6 +10,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 CONFIG(ARM):DEFINES += RASPBERRY_PI
 CONFIG(DESKTOP):DEFINES += DESKTOP
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT
 
 SOURCES += \
     datavisualization.cpp \
