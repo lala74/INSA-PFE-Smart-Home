@@ -33,6 +33,8 @@ private slots:
     void page1Button_clicked();
     void page2Button_clicked();
     void page3Button_clicked();
+    void blink_indoor_mov_warning();
+    void blink_outdoor_mov_warning();
 
 private:
     void initialize_display();
@@ -51,5 +53,7 @@ private:
     QTimer* homeDisplayTimer;
     QTimer* indoorChartsTimer;
     QTimer* outdoorChartsTimer;
+    QTimer* indoorMovWarnTimer;
+    QTimer* outdoorMovWarnTimer;
 };
 #endif  // DISPLAY_H

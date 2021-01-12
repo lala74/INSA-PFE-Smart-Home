@@ -16,32 +16,41 @@ Display::Display(QWidget* parent)
       dataVisual(nullptr),
       homeDisplayTimer(nullptr),
       indoorChartsTimer(nullptr),
-      outdoorChartsTimer(nullptr)
+      outdoorChartsTimer(nullptr),
+      indoorMovWarnTimer(nullptr),
+      outdoorMovWarnTimer(nullptr)
 {
     ui->setupUi(this);
+    // Initialize Timer
+    homeDisplayTimer = new QTimer(this);
+    indoorChartsTimer = new QTimer(this);
+    outdoorChartsTimer = new QTimer(this);
+    indoorMovWarnTimer = new QTimer(this);
+    outdoorMovWarnTimer = new QTimer(this);
     // Initialize value
     ui->IndoorLumProgressBar->setMinimum(0);
     ui->IndoorLumProgressBar->setMaximum(1000);
     ui->OutdoorLumProgressBar->setMinimum(0);
     ui->OutdoorLumProgressBar->setMaximum(1000);
-    // Initialize the display
-    initialize_display();
+
     dataVisual = new DataVisualization();
     // Link element
     connect(ui->ExitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
     connect(ui->Page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
     connect(ui->Page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
     connect(ui->Page3Button, SIGNAL(clicked()), this, SLOT(page3Button_clicked()));
-    // Timer
-    homeDisplayTimer = new QTimer(this);
-    indoorChartsTimer = new QTimer(this);
-    outdoorChartsTimer = new QTimer(this);
+    // Link Timer with element
     connect(homeDisplayTimer, SIGNAL(timeout()), this, SLOT(update_home_data_display()));
     connect(indoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_indoor_charts()));
     connect(outdoorChartsTimer, SIGNAL(timeout()), this, SLOT(update_outdoor_charts()));
+    connect(indoorMovWarnTimer, SIGNAL(timeout()), this, SLOT(blink_indoor_mov_warning()));
+    connect(outdoorMovWarnTimer, SIGNAL(timeout()), this, SLOT(blink_outdoor_mov_warning()));
     // Start Timer
     homeDisplayTimer->start(display::timer::homeDisplay);
     startTimer(1000);  // 1-second timer for timeDisplay
+
+    // Initialize the display
+    initialize_display();
 }
 
 void Display::exitButton_clicked()
@@ -72,6 +81,24 @@ void Display::page3Button_clicked()
     ui->pages->setCurrentIndex(2);
 }
 
+void Display::blink_indoor_mov_warning()
+{
+    if(ui->IndoorMov->isHidden()) {
+        ui->IndoorMov->show();
+    } else {
+        ui->IndoorMov->hide();
+    }
+}
+
+void Display::blink_outdoor_mov_warning()
+{
+    if(ui->OutdoorMov->isHidden()) {
+        ui->OutdoorMov->show();
+    } else {
+        ui->OutdoorMov->hide();
+    }
+}
+
 void Display::initialize_display()
 {
     timerEvent();
@@ -86,9 +113,25 @@ void Display::update_home_data_display()
 {
     mapValue = DbManager::instance().get_outdoor_data();
     update_data();
+
+    qDebug() << database::column::device << mapValue.value(database::column::device).toString();
+    qDebug() << database::column::sensor_id << mapValue.value(database::column::sensor_id).toString();
+    qDebug() << database::column::timestamp << mapValue.value(database::column::timestamp).toString();
+    qDebug() << database::column::temperature << temperature;
+    qDebug() << database::column::humidity << humidity;
+    qDebug() << database::column::mouvement << mouvement;
+    qDebug() << database::column::luminosity << luminosity;
+
     ui->OutdoorTemp->setText(temperature);
     ui->OutdoorHum->setText(humidity);
-    //    ui->OutdoorMov->setText(mouvement);
+    if(mouvement.toInt() != 0) {
+        if(!outdoorMovWarnTimer->isActive()) {
+            outdoorMovWarnTimer->start(display::timer::warning);
+        }
+    } else {
+        outdoorMovWarnTimer->stop();
+        ui->OutdoorMov->hide();
+    }
     QPropertyAnimation* indoorLumProgressBarAnimation = new QPropertyAnimation(ui->OutdoorLumProgressBar, "value");
     indoorLumProgressBarAnimation->setDuration(500);
     indoorLumProgressBarAnimation->setStartValue(ui->OutdoorLumProgressBar->value());
@@ -108,7 +151,14 @@ void Display::update_home_data_display()
 
     ui->IndoorTemp->setText(temperature);
     ui->IndoorHum->setText(humidity);
-    //    ui->IndoorMov->setText(mouvement);
+    if(mouvement.toInt() != 0) {
+        if(!indoorMovWarnTimer->isActive()) {
+            indoorMovWarnTimer->start(display::timer::warning);
+        }
+    } else {
+        indoorMovWarnTimer->stop();
+        ui->IndoorMov->hide();
+    }
     QPropertyAnimation* outdoorLumProgressBarAnimation = new QPropertyAnimation(ui->IndoorLumProgressBar, "value");
     outdoorLumProgressBarAnimation->setDuration(500);
     outdoorLumProgressBarAnimation->setStartValue(ui->IndoorLumProgressBar->value());

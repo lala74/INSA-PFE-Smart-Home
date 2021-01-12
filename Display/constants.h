@@ -36,7 +36,8 @@ namespace display
 namespace timer
 {
     const quint16 homeDisplay{3000};  // refresh display every 3s
-    const quint16 charts{5000};       // refresh display every 3s
+    const quint16 charts{5000};       // refresh charts every 5s
+    const quint16 warning{500};       // refresh movement warning every 0.5s
 }  // namespace timer
 }  // namespace display
 
