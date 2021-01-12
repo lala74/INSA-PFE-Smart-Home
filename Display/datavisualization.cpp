@@ -21,9 +21,9 @@ QList<QChart*> DataVisualization::get_charts(const QString& sensorId)
     }
 
     build_chart(tempChart, database::column::temperature);
-    add_serie_to_chart(tempChart, tempSeries, serieColor, "%i C");
+    add_serie_to_chart(tempChart, tempSeries, serieColor, "%.1f C");
     build_chart(humChart, database::column::humidity);
-    add_serie_to_chart(humChart, humSeries, serieColor, "%i %");
+    add_serie_to_chart(humChart, humSeries, serieColor, "%.1f %");
 
     return QList<QChart*>{tempChart, humChart};
 }

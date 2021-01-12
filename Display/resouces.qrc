@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/img">
         <file>img/INSA-logo-crop.png</file>
+        <file>img/lamp-green.png</file>
+        <file>img/lamp-orange.png</file>
+        <file>img/man-running-green.png</file>
+        <file>img/man-running-orange.png</file>
     </qresource>
 </RCC>

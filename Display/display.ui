@@ -39,6 +39,9 @@
       <height>480</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
@@ -60,68 +63,10 @@ color: #FF8A27;</string>
        <string>°C</string>
       </property>
      </widget>
-     <widget class="QLabel" name="IndoorLum">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>160</y>
-        <width>101</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Digital-7 Mono</family>
-        <pointsize>30</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
-color: #78C745;</string>
-      </property>
-      <property name="text">
-       <string>520</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="OutdoorLum">
-      <property name="geometry">
-       <rect>
-        <x>420</x>
-        <y>160</y>
-        <width>121</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Digital-7 Mono</family>
-        <pointsize>30</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
-color: #FF8A27;</string>
-      </property>
-      <property name="text">
-       <string>480</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="IndoorLabel">
       <property name="geometry">
        <rect>
-        <x>30</x>
+        <x>20</x>
         <y>20</y>
         <width>181</width>
         <height>41</height>
@@ -205,35 +150,6 @@ color: #FF8A27;</string>
       </property>
       <property name="text">
        <string>-25.6</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="IndoorMov">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>90</y>
-        <width>51</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Digital-7 Mono</family>
-        <pointsize>30</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
-color: #C00000;</string>
-      </property>
-      <property name="text">
-       <string>0</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -343,35 +259,6 @@ color: #FF8A27;</string>
        <string>%</string>
       </property>
      </widget>
-     <widget class="QLabel" name="OutdoorMov">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>90</y>
-        <width>51</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Digital-7 Mono</family>
-        <pointsize>30</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 30pt &quot;Digital-7 Mono&quot;;
-color: #C00000;</string>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
      <widget class="QLabel" name="IndoorHum">
       <property name="geometry">
        <rect>
@@ -415,6 +302,143 @@ color: #78C745;</string>
       </property>
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="IndoorLumProgressBar">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>180</y>
+        <width>141</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QProgressBar:horizontal {
+border-radius: 3px;
+background: #262626;
+padding: 1px;
+}
+QProgressBar::chunk:horizontal {
+background: qlineargradient(x1: 0, y1: 0.5, x2: 1, y2: 0.5, stop: 0 #78C745, stop: 1 #262626);
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="OutdoorLumProgressBar">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>180</y>
+        <width>141</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QProgressBar:horizontal {
+border-radius: 3px;
+background: #262626;
+padding: 1px;
+}
+QProgressBar::chunk:horizontal {
+background: qlineargradient(x1: 0, y1: 0.5, x2: 1, y2: 0.5, stop: 0 #FF8A27, stop: 1 #262626);
+}</string>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>100</number>
+      </property>
+      <property name="textVisible">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="LampGreen">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>180</y>
+        <width>23</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resouces.qrc">:/img/img/lamp-green.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="LampGreen_2">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>180</y>
+        <width>23</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resouces.qrc">:/img/img/lamp-orange.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="IndoorMov">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>110</y>
+        <width>60</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resouces.qrc">:/img/img/man-running-green.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="OutdoorMov">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>110</y>
+        <width>60</width>
+        <height>60</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="resouces.qrc">:/img/img/man-running-orange.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -771,7 +795,7 @@ QPushButton:pressed {
      <string>3</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="InsaLogo">
     <property name="geometry">
      <rect>
       <x>180</x>

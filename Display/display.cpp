@@ -19,12 +19,15 @@ Display::Display(QWidget* parent)
       outdoorChartsTimer(nullptr)
 {
     ui->setupUi(this);
+    // Initialize value
+    ui->IndoorLumProgressBar->setMinimum(0);
+    ui->IndoorLumProgressBar->setMaximum(1000);
+    ui->OutdoorLumProgressBar->setMinimum(0);
+    ui->OutdoorLumProgressBar->setMaximum(1000);
     // Initialize the display
     initialize_display();
-    // Link element
-
     dataVisual = new DataVisualization();
-
+    // Link element
     connect(ui->ExitButton, SIGNAL(clicked()), this, SLOT(exitButton_clicked()));
     connect(ui->Page1Button, SIGNAL(clicked()), this, SLOT(page1Button_clicked()));
     connect(ui->Page2Button, SIGNAL(clicked()), this, SLOT(page2Button_clicked()));
@@ -85,8 +88,12 @@ void Display::update_home_data_display()
     update_data();
     ui->OutdoorTemp->setText(temperature);
     ui->OutdoorHum->setText(humidity);
-    ui->OutdoorMov->setText(mouvement);
-    ui->OutdoorLum->setText(luminosity);
+    //    ui->OutdoorMov->setText(mouvement);
+    QPropertyAnimation* indoorLumProgressBarAnimation = new QPropertyAnimation(ui->OutdoorLumProgressBar, "value");
+    indoorLumProgressBarAnimation->setDuration(500);
+    indoorLumProgressBarAnimation->setStartValue(ui->OutdoorLumProgressBar->value());
+    indoorLumProgressBarAnimation->setEndValue(luminosity.toInt());
+    indoorLumProgressBarAnimation->start();
 
     mapValue = DbManager::instance().get_indoor_data();
     update_data();
@@ -101,8 +108,12 @@ void Display::update_home_data_display()
 
     ui->IndoorTemp->setText(temperature);
     ui->IndoorHum->setText(humidity);
-    ui->IndoorMov->setText(mouvement);
-    ui->IndoorLum->setText(luminosity);
+    //    ui->IndoorMov->setText(mouvement);
+    QPropertyAnimation* outdoorLumProgressBarAnimation = new QPropertyAnimation(ui->IndoorLumProgressBar, "value");
+    outdoorLumProgressBarAnimation->setDuration(500);
+    outdoorLumProgressBarAnimation->setStartValue(ui->IndoorLumProgressBar->value());
+    outdoorLumProgressBarAnimation->setEndValue(luminosity.toInt());
+    outdoorLumProgressBarAnimation->start();
 }
 
 void Display::update_data()
