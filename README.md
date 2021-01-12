@@ -1,5 +1,7 @@
 # Smart Home Projet Fin d'Etude Wiki <!-- omit in toc -->
 
+![Rasp's Screen](./img/INSA-cvl.png)  
+
 - [1. Introduction](#1-introduction)
 - [2. Project description](#2-project-description)
 - [3. Divers](#3-divers)
