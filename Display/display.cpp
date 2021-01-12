@@ -73,6 +73,10 @@ void Display::initialize_display()
 {
     timerEvent();
     update_home_data_display();
+
+#ifdef QT_NO_DEBUG_OUTPUT
+    ui->ExitButton->hide();
+#endif
 }
 
 void Display::update_home_data_display()
