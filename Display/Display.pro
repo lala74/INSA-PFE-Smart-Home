@@ -25,7 +25,7 @@ HEADERS += \
     display.h
 
 RESOURCES += \
-    sundata.qrc
+    resouces.qrc
 
 FORMS += \
     display.ui

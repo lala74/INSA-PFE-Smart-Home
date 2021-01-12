@@ -774,7 +774,7 @@ QPushButton:pressed {
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>180</x>
       <y>10</y>
       <width>80</width>
       <height>47</height>
@@ -784,7 +784,7 @@ QPushButton:pressed {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../../../../Downloads/INSA-logo-crop.png</pixmap>
+     <pixmap resource="resouces.qrc">:/img/img/INSA-logo-crop.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -810,6 +810,8 @@ QPushButton:pressed {
    <header>QtCharts</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resouces.qrc"/>
+ </resources>
  <connections/>
 </ui>
