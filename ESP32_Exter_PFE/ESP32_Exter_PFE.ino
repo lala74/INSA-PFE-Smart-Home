@@ -1,5 +1,5 @@
 #define Pin_Mouvement 18    //Pin 18
-#define Pin_Luminier 19      //Pin 19
+#define Pin_Luminier 34      //Pin 34
 #define Pin_Temperature 21   //Pin 21
 #define ONBOARD_LED  2
 
@@ -20,10 +20,10 @@ const char* wifi_password = "minhduc12";     // Your personal network password
 
 //MQTT configuration
 const char* mqtt_server = "192.168.43.48";  // IP of the MQTT broker
-const char* topic = "home/indoor";
+const char* topic = "home/outdoor";
 const char* mqtt_username = "baoLE"; // MQTT username
 const char* mqtt_password = "12345678"; // MQTT password
-const char* clientID = "sensorIndoor"; // MQTT client ID
+const char* clientID = "sensorOutdoor"; // MQTT client ID
 
 const char* ntpServer = "pool.ntp.org";
 const long  gmtOffset_sec = 3600;
@@ -44,11 +44,21 @@ WiFiClient wifiClient;
 // 8883 is the listener port for the Broker
 PubSubClient client(mqtt_server, 1883, wifiClient);
 
+void blick_led_n_times(int n) {
+  for (int i=0; i < n;++i) {
+  digitalWrite(ONBOARD_LED,HIGH);
+  delay(100);
+  digitalWrite(ONBOARD_LED,LOW);
+  delay(100);
+  }
+}
+
 void MQTT_reconnect() {
   while (!client.connected()){
     Serial.print("Attempting MQTT connection...");
     if (client.connect(clientID, mqtt_username, mqtt_password)) {
       Serial.println("Connected to MQTT Broker!");
+      blick_led_n_times(5);
     }
     else {
       Serial.println("Connection to MQTT Broker failed...");
@@ -61,12 +71,6 @@ void MQTT_reconnect() {
   }
   /// Connect to MQTT
   
-}
-
-void blick_led() {
-  digitalWrite(ONBOARD_LED,HIGH);
-  delay(100);
-  digitalWrite(ONBOARD_LED,LOW);
 }
 
 void setup() {
@@ -109,19 +113,19 @@ void setup() {
 
 boolean readDateFromSensor(float *temp_h, float *temp_t, int *temp_mov,int *temp_lum) {
   bool check = false;
-  //*temp_h = dht.readHumidity();
-  //*temp_t = dht.readTemperature();
+  *temp_h = dht.readHumidity();
+  *temp_t = dht.readTemperature();
 
-  *temp_h = rand() / (float) RAND_MAX*4+50;
-  *temp_t = rand() / (float) RAND_MAX*4+10;
+//  *temp_h = rand() / (float) RAND_MAX*4+50;
+//  *temp_t = rand() / (float) RAND_MAX*4+10;
 
   if (digitalRead(Pin_Mouvement) == 0) {
     *temp_mov = 1;
   } else {
     *temp_mov = 0;
   }
-  //*temp_lum = analogRead(Pin_Luminier);
-  *temp_lum = rand() / (float) RAND_MAX * 1000 + 100;
+  *temp_lum = analogRead(Pin_Luminier);
+//  *temp_lum = rand() / (float) RAND_MAX * 1000 + 100;
   if (temp_h == 0 || temp_t == 0){
     return check;
   }
@@ -156,6 +160,12 @@ void makeData(){
   mouv /= count;
   lum /= count;
 
+  if (mouv > 0.1) {
+    mouv = 1;
+  } else {
+    mouv = 0;
+  }
+
 }
 
 void MQTT_Send_data() {
@@ -173,7 +183,7 @@ void MQTT_Send_data() {
   //if (client.publish(topic, String(data).c_str())) {
   if (client.publish(topic, JSONmessageBuffer) == true) {
     Serial.println("Success sending message");
-    blick_led();
+    blick_led_n_times(1);
   }
   else {
     Serial.println("data failed to send. Reconnecting to MQTT Broker and trying again");

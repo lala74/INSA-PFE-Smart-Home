@@ -63,7 +63,7 @@ color: #FF8A27;</string>
      <widget class="QLabel" name="IndoorLum">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>30</x>
         <y>160</y>
         <width>101</width>
         <height>51</height>
@@ -92,7 +92,7 @@ color: #78C745;</string>
      <widget class="QLabel" name="OutdoorLum">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>420</x>
         <y>160</y>
         <width>121</width>
         <height>51</height>
@@ -213,7 +213,7 @@ color: #FF8A27;</string>
      <widget class="QLabel" name="IndoorMov">
       <property name="geometry">
        <rect>
-        <x>60</x>
+        <x>80</x>
         <y>90</y>
         <width>51</width>
         <height>41</height>
@@ -346,7 +346,7 @@ color: #FF8A27;</string>
      <widget class="QLabel" name="OutdoorMov">
       <property name="geometry">
        <rect>
-        <x>480</x>
+        <x>490</x>
         <y>90</y>
         <width>51</width>
         <height>41</height>

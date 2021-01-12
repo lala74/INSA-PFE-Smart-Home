@@ -29,6 +29,7 @@ QMap<QString, QVariant> DbManager::get_last_data_follow_by_sensor_id(const QStri
     QMap<QString, QVariant> returnVal;
     QSqlQuery query;
     QString cmd = "SELECT * FROM home_sensor WHERE sensor_id = '" + sensor_id + "' ORDER BY timestamp DESC LIMIT 1";
+    qDebug() << cmd;
     query.exec(cmd);
     if(query.next()) {
         qDebug() << "Database: query ok";

@@ -84,6 +84,9 @@ void Display::update_home_data_display()
     ui->OutdoorMov->setText(mouvement);
     ui->OutdoorLum->setText(luminosity);
 
+    mapValue = DbManager::instance().get_indoor_data();
+    update_data();
+
     qDebug() << database::column::device << mapValue.value(database::column::device).toString();
     qDebug() << database::column::sensor_id << mapValue.value(database::column::sensor_id).toString();
     qDebug() << database::column::timestamp << mapValue.value(database::column::timestamp).toString();
@@ -92,8 +95,6 @@ void Display::update_home_data_display()
     qDebug() << database::column::mouvement << mouvement;
     qDebug() << database::column::luminosity << luminosity;
 
-    mapValue = DbManager::instance().get_indoor_data();
-    update_data();
     ui->IndoorTemp->setText(temperature);
     ui->IndoorHum->setText(humidity);
     ui->IndoorMov->setText(mouvement);
@@ -105,7 +106,7 @@ void Display::update_data()
     temperature = QString::number(mapValue.value(database::column::temperature).toDouble(), 'f', 1);
     humidity = QString::number(mapValue.value(database::column::humidity).toDouble(), 'f', 0);
     mouvement = mapValue.value(database::column::mouvement).toString();
-    luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 1);
+    luminosity = QString::number(mapValue.value(database::column::luminosity).toDouble(), 'f', 0);
 }
 
 void Display::update_indoor_charts()

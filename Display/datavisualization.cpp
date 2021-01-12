@@ -33,11 +33,12 @@ void DataVisualization::build_series_by_sensor_id(const QString& sensorId,
                                                   QLineSeries* humSeries)
 {
     QDateTime startTime, endTime;
-    QDate startDate = QDate::currentDate();
-    startDate = startDate.addDays(-3);
+    //    QDate startDate = QDate::currentDate();
+    //    startDate = startDate.addDays(-3);
 
-    startTime.setDate(startDate);
+    startTime.setDate(QDate::currentDate());
     startTime.setTime(QTime::currentTime());
+    startTime = startTime.addSecs(-12 * 60 * 60);
 
     endTime.setDate(QDate::currentDate());
     endTime.setTime(QTime::currentTime());
