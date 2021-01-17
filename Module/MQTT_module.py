@@ -6,6 +6,7 @@ import json
 import os
 import tkinter as tk
 import time
+import socket
 
 from Module.DataBase_module import DataBaseAPI
 
@@ -33,13 +34,12 @@ class MQTT_sub:
     def on_connect(self, client, userdata, flags, rc):
         """ The callback for when the client receives a CONNACK response from the server."""
         if rc==0:
-            self.mqtt_client.connected_flag=True #set flag
+            client.connected_flag=True #set flag
             print("connected OK")
-            print(str(self.mqtt_client.connected_flag)+ "123")
             client.subscribe(self.MQTT_TOPIC)
         else:
             print("Bad connection Returned code=",rc)
-            self.mqtt_client.bad_connection_flag=True
+            client.bad_connection_flag=True
 
 
     def on_message(self, client, userdata, msg):
@@ -54,9 +54,8 @@ class MQTT_sub:
                                  msg_in["temperature"], msg_in["humidity"], msg_in["mouvement"], msg_in["luminosity"])
             self.dataAPI.update_csv(msg_in["sensorType"])
         except:
-            print("Failed to read data")
-            self.mqtt_client.connected_flag = False
-            print("1122233")
+            print("Failed to save data")
+            client.connected_flag = False
 
     def on_disconnect(self, client, userdata, rc=0):
         print("DisConnected result code "+str(rc))
@@ -73,3 +72,10 @@ class MQTT_sub:
     def get_connected_flag(self):
         return self.mqtt_client.connected_flag
 
+def get_host_addr(): 
+    try: 
+        host_name = socket.gethostname() 
+        host_ip = socket.gethostbyname(host_name) 
+        return host_ip
+    except: 
+        print("Unable to get Hostname and IP") 
