@@ -19,7 +19,7 @@ const char* ssid = "CoCuDo";                 // Your personal network SSID
 const char* wifi_password = "quocbaaoo";     // Your personal network password
 
 //MQTT configuration
-const char* mqtt_server = "192.168.43.38";  // IP of the MQTT broker
+const char* mqtt_server = "192.168.43.237";  // IP of the MQTT broker
 const char* topic = "home/indoor";
 const char* mqtt_username = "baoLE"; // MQTT username
 const char* mqtt_password = "12345678"; // MQTT password
